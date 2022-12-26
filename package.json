@@ -1,0 +1,34 @@
+{
+  "name": "test-2-quasar",
+  "version": "0.0.1",
+  "description": "A Quasar Project",
+  "productName": "Quasar App",
+  "author": "drangel <drangel@mitsoftware.com>",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.15.8",
+    "@types/lodash": "^4.14.191",
+    "axios": "^1.2.1",
+    "lodash": "^4.17.21",
+    "pinia": "^2.0.28",
+    "quasar": "^2.11.1",
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "@quasar/app-vite": "^1.1.3",
+    "@types/node": "^18.11.17",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.20",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
+    "typescript": "^4.9.4"
+  },
+  "engines": {
+    "node": "^18 || ^16 || ^14.19",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
+}

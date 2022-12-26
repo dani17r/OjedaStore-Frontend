@@ -1,0 +1,29 @@
+{
+  "extends": "@quasar/app-vite/tsconfig-preset",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@middlewares/*": ["src/router/middlewares/*"],
+      "@translate/*": ["src/services/translate/*"],
+      "@components/*": ["src/view/components/*"],
+      "@composables/*": ["src/composables/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@layouts/*": ["src/view/layouts/*"],
+      "@boot/*": ["src/services/boot/*"],
+      "@http/*": ["src/services/http/*"],
+      "@services/*": ["src/services/*"],
+      "@helps/*": ["src/tools/helps/*"],
+      "@scss/*": ["src/assets/scss/*"],
+      "@pages/*": ["src/view/pages/*"],
+      "@router/*": ["src/router/*"],
+      "@stores/*": ["src/stores/*"],
+      "@config/*": ["src/config/*"],
+      "@assets/*": ["src/assets/*"],
+      "@tools/*": ["src/tools/*"],
+      "@public/*": ["public/*"],
+      "@view/*": ["src/view/*"],
+      "@src/*": ["src/*"],
+      "./*": ["**/*"]
+    }
+  }
+}
