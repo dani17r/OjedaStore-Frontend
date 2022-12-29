@@ -1,36 +1,36 @@
 <template>
   <div class="full-width row justify-center items-center content-center q-mb-xl">
     <div class="full-width q-mt-xl" style="max-width: 400px">
-      <q-form @submit="accountStore.create(form)" @reset="onReset" class="q-gutter-lg">
+      <q-form @submit="register()" @reset="onReset" class="q-gutter-lg">
         <q-input
-          label="Your email *"
+          :label="$t('pages.register.inputs.email.label')"
+          :hint="$t('pages.register.inputs.email.hint')"
           v-model="form.email"
-          hint="Your email"
           :rules="[empty]"
           lazy-rules
         />
 
         <q-input
+          :label="$t('pages.register.inputs.fullname.label')"
+          :hint="$t('pages.register.inputs.fullname.hint')"
           :rules="[empty, mini(4)]"
           v-model="form.fullname"
-          hint="Your full name *"
-          label="Full name"
           lazy-rules
         />
 
         <q-input
+          :label="$t('pages.register.inputs.username.label')"
+          :hint="$t('pages.register.inputs.username.hint')"
           v-model="form.username"
-          hint="full username"
-          label="Username"
           :rules="[empty]"
           lazy-rules
         />
 
         <q-input
+          :label="$t('pages.register.inputs.password.label')"
+          :hint="$t('pages.register.inputs.password.hint')"
           :type="isPwd ? 'password' : 'text'"
-          hint="Password with toggle"
           v-model="form.password"
-          label="Your password"
           :rules="[empty]"
           lazy-rules
         >
@@ -44,18 +44,26 @@
         </q-input>
 
         <q-input
+          :label="$t('pages.register.inputs.verifyPassword.label')"
+          :hint="$t('pages.register.inputs.verifyPassword.hint')"
           :rules="[empty, verifyValue(form.password)]"
-          hint="Verify password with toggle"
           v-model="verifyPassword"
-          label="Verify password"
           type="password"
           lazy-rules
         >
         </q-input>
 
+        <q-toggle v-model="accept" :label="$t('pages.register.toggle')" />
+
         <div class="mt-10">
-          <q-btn label="Register" type="submit" color="primary" />
-          <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+          <q-btn :label="$t('pages.register.btn.submit')" type="submit" color="primary" />
+          <q-btn
+            :label="$t('pages.register.btn.reset')"
+            class="q-ml-sm"
+            color="primary"
+            type="reset"
+            flat
+          />
         </div>
       </q-form>
       <div class="mt-6">
@@ -66,14 +74,15 @@
 </template>
 
 <script setup>
-import { useAccountStore } from "@stores/account";
 import { empty, mini } from "@helps/inputsValidations";
-import { ref, reactive } from "vue";
 import { verifyValue } from "@helps/inputsValidations";
+import { useAccountStore } from "@stores/account";
+import { ref, reactive } from "vue";
 
 const accountStore = useAccountStore();
 
 const verifyPassword = ref("12345678");
+const accept = ref(false);
 const isPwd = ref(true);
 const form = reactive({
   email: "test1@test.com",
@@ -82,11 +91,16 @@ const form = reactive({
   username: "test1",
 });
 
+const register = () => {
+  accept.value = accountStore.create(form, onReset);
+};
+
 const onReset = () => {
   verifyPassword.value = null;
   form.username = null;
   form.fullname = null;
   form.password = null;
+  accept.value = false;
   isPwd.value = true;
   form.email = null;
 };

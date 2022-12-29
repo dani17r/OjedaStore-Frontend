@@ -14,7 +14,7 @@ declare module "@vue/runtime-core" {
 // "export default () => {}" function below (which runs individually
 // for each client)
 const api = axios.create({
-  baseURL: "http://localhost:7700/api/v1",
+  baseURL: "http://localhost:7500/api/v1",
   headers: {
     "Ojeda-Store": "73ke939eldjdo3ao04o303l",
   },

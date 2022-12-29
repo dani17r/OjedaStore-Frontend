@@ -2,8 +2,10 @@ import { Dark, SessionStorage } from "quasar";
 import { computed } from "vue";
 
 export default () => {
-  let iconDark = computed(() => {
-    return Dark.mode ? "light_mode" : "dark_mode";
+  let modeDark = computed(() => {
+    return Dark.mode
+      ? { icon: "light_mode", title: "light" }
+      : { icon: "dark_mode", title: "dark" };
   });
 
   const toggleDark = () => {
@@ -13,6 +15,6 @@ export default () => {
 
   return {
     toggleDark,
-    iconDark,
+    modeDark,
   };
 };

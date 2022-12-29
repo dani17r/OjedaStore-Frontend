@@ -3,18 +3,18 @@
     <div class="full-width q-mt-xl" style="max-width: 400px">
       <q-form @submit="authStore.login(form)" @reset="onReset" class="q-gutter-lg">
         <q-input
-          label="Your email *"
+          :label="$t('pages.login.inputs.email.label')"
+          :hint="$t('pages.login.inputs.email.hint')"
           v-model="form.email"
-          hint="Your email"
           :rules="[empty]"
           lazy-rules
         />
 
         <q-input
+          :label="$t('pages.login.inputs.password.label')"
+          :hint="$t('pages.login.inputs.password.hint')"
           :type="isPwd ? 'password' : 'text'"
-          hint="Password with toggle"
           v-model="form.password"
-          label="Your password"
           :rules="[empty]"
         >
           <template v-slot:append>
@@ -26,16 +26,29 @@
           </template>
         </q-input>
 
-        <q-toggle v-model="accept" label="I accept the license and terms" />
+        <q-toggle v-model="form.extend" :label="$t('pages.login.toggle')" />
 
         <div class="mt-10">
-          <q-btn label="Submit" type="submit" color="primary" />
-          <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+          <q-btn
+            :label="$t('pages.login.btn.submit')"
+            color="primary"
+            type="submit"
+            unelevated
+          />
+          <q-btn
+            :label="$t('pages.login.btn.reset')"
+            color="primary"
+            class="q-ml-sm"
+            type="reset"
+            flat
+          />
         </div>
       </q-form>
 
       <div class="mt-6">
-        <RouterLink :to="{ name: 'register' }">Ir a registro</RouterLink>
+        <RouterLink :to="{ name: 'register' }" class="capitalize">{{
+          $t("pages.login.link")
+        }}</RouterLink>
       </div>
     </div>
   </div>
@@ -48,17 +61,18 @@ import { ref, reactive } from "vue";
 
 const authStore = useAuthStore();
 const isPwd = ref(true);
-const accept = ref(true);
 const form = reactive({
   email: "marcos1922@gmail.com",
   password: "123456789",
   model: "accounts",
+  extend: false,
 });
 
 const onReset = () => {
-  form.name = null;
   form.password = null;
-  accept.value = false;
+  form.extend = false;
   isPwd.value = true;
+  form.email = null;
+  form.name = null;
 };
 </script>

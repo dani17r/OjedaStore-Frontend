@@ -16,3 +16,8 @@ export interface SessionI {
 export type SessionT = SessionI | any;
 
 export type LogoutT = Omit<LoginI, "password">;
+export type VerifyEmailT = Omit<LoginI, "password">;
+export type ActiveEmailT = Omit<
+  LoginI & { token: string },
+  "password" | "email"
+>;

@@ -1,9 +1,9 @@
 <template>
-  <q-btn :icon="iconDark" @click="toggleDark()" round flat />
+  <q-btn :icon="modeDark.icon" @click="toggleDark()" round flat />
 </template>
 
 <script setup lang="ts">
 import composableModeDark from "@composables/modeDark";
 
-const { iconDark, toggleDark } = composableModeDark();
+const { modeDark, toggleDark } = composableModeDark();
 </script>

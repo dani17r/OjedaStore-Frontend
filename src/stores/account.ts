@@ -1,5 +1,7 @@
 import { StateI, AccountT, CreateAccountI } from "@interfaces/account";
+import { errorNotify, verifyEmailNotify } from "@helps/customNotify";
 import * as httpAccount from "@http/account";
+import * as httpAuth from "@http/auth";
 import { defineStore } from "pinia";
 
 export const useAccountStore = defineStore("account", {
@@ -33,10 +35,21 @@ export const useAccountStore = defineStore("account", {
         this.account = null;
       }
     },
-    async create(form: CreateAccountI) {
-      await httpAccount.create(form).then((data: any) => {
-        console.log(data);
-      });
+    create(form: CreateAccountI, onReset: Function) {
+      const verifyEmail = () => {
+        httpAuth
+          .verifyEmail({ email: form.email, model: "accounts" })
+          .then(() => {
+            verifyEmailNotify("Porfavor revisa tu correo");
+            onReset();
+          })
+          .catch((err) => errorNotify(err.response.data.message));
+      };
+
+      httpAccount
+        .create(form)
+        .then((data: AccountT) => verifyEmail())
+        .catch((err) => errorNotify(err.response.data.message));
     },
   },
 });

@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
+import ActiveEmail from "@middlewares/activeEmail";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -22,21 +23,36 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: "/",
-    name: "home",
+    component: () => import("@layouts/PublicLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "home",
+        meta: {
+          public: true,
+        },
+        component: () => import("@pages/Home.vue"),
+      },
+      {
+        path: "/login",
+        name: "login",
+        component: () => import("@pages/Login.vue"),
+      },
+      {
+        path: "/register",
+        name: "register",
+        component: () => import("@pages/Register.vue"),
+      },
+    ],
+  },
+  {
+    path: "/active-email/:token",
+    name: "active-email",
     meta: {
       public: true,
     },
-    component: () => import("@pages/Home.vue"),
-  },
-  {
-    path: "/login",
-    name: "login",
-    component: () => import("@pages/Login.vue"),
-  },
-  {
-    path: "/register",
-    name: "register",
-    component: () => import("@pages/Register.vue"),
+    beforeEnter: [ActiveEmail],
+    component: () => import("@pages/ActiveEmail.vue"),
   },
   {
     path: "/:catchAll(.*)*",
