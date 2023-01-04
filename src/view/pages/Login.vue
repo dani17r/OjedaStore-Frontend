@@ -6,6 +6,7 @@
           :label="$t('pages.login.inputs.email.label')"
           :hint="$t('pages.login.inputs.email.hint')"
           v-model="form.email"
+          ref="inputEmail"
           :rules="[empty]"
           lazy-rules
         />
@@ -45,9 +46,14 @@
         </div>
       </q-form>
 
-      <div class="mt-6">
-        <RouterLink :to="{ name: 'register' }" class="capitalize">{{
-          $t("pages.login.link")
+      <div class="mt-6 grid gap-3">
+        <div>
+          <a class="capitalize underline cursor-pointer" @click="sendEmailForgot()">{{
+            $t("pages.login.links.recoveryPassword")
+          }}</a>
+        </div>
+        <RouterLink :to="{ name: 'register' }" class="capitalize contents">{{
+          $t("pages.login.links.goTo")
         }}</RouterLink>
       </div>
     </div>
@@ -55,12 +61,15 @@
 </template>
 
 <script setup>
-import { useAuthStore } from "@stores/auth";
 import { empty } from "@helps/inputsValidations";
+import { useAuthStore } from "@stores/auth";
 import { ref, reactive } from "vue";
+import { pick } from "lodash";
 
 const authStore = useAuthStore();
+const inputEmail = ref(null);
 const isPwd = ref(true);
+
 const form = reactive({
   email: "marcos1922@gmail.com",
   password: "123456789",
@@ -68,11 +77,18 @@ const form = reactive({
   extend: false,
 });
 
+const sendEmailForgot = () => {
+  let validate = inputEmail.value.validate();
+  if (validate) {
+    let send = pick(form, ["email", "model"]);
+    authStore.sendForgotPassword(send, "Revisa tu email.");
+  }
+};
+
 const onReset = () => {
   form.password = null;
   form.extend = false;
   isPwd.value = true;
   form.email = null;
-  form.name = null;
 };
 </script>

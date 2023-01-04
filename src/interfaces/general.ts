@@ -1,3 +1,5 @@
+import { RouteLocationNormalizedLoaded } from "vue-router";
+
 export interface LifecyclesI {
   mounted: Boolean;
   updated: Boolean;
@@ -12,3 +14,5 @@ export interface QueryI {
   sort?: string;
   pag?: number;
 }
+
+export type RouterT = RouteLocationNormalizedLoaded;

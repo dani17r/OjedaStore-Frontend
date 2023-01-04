@@ -14,5 +14,8 @@ export default {
     submit: "Aceptar",
     reset: "Limpiar",
   },
-  link: "Ir a registrarme",
+  links: {
+    goTo: "Ir a registrarme",
+    recoveryPassword: "Olvide mi contraseña",
+  },
 };

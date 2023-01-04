@@ -27,12 +27,15 @@
         <router-view />
       </q-page-container>
     </q-scroll-area>
+
+    <ToggleDark class="fixed bottom-2 right-4" />
   </q-layout>
 </template>
 
 <script setup lang="ts">
 import { onBeforeRouteUpdate, RouteLocationNormalized } from "vue-router";
 import ButtomLang from "@components/ButtomLang.vue";
+import ToggleDark from "@components/ToggleDark.vue";
 import { useRoute } from "vue-router";
 import { ref } from "vue";
 const route = useRoute();

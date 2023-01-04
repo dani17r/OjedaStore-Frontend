@@ -1,5 +1,5 @@
 import { StateI, AccountT, CreateAccountI } from "@interfaces/account";
-import { errorNotify, verifyEmailNotify } from "@helps/customNotify";
+import { errorNotify, sendEmailNotify } from "@helps/customNotify";
 import * as httpAccount from "@http/account";
 import * as httpAuth from "@http/auth";
 import { defineStore } from "pinia";
@@ -12,6 +12,11 @@ export const useAccountStore = defineStore("account", {
     },
     account: null,
   }),
+  getters: {
+    emailIsVerify: (state) => {
+      return state.account ? !state.account.verifiedAt : false;
+    },
+  },
   actions: {
     set(newAccount: AccountT) {
       // si no se ha montado el store
@@ -40,7 +45,7 @@ export const useAccountStore = defineStore("account", {
         httpAuth
           .verifyEmail({ email: form.email, model: "accounts" })
           .then(() => {
-            verifyEmailNotify("Porfavor revisa tu correo");
+            sendEmailNotify("Porfavor revisa tu correo");
             onReset();
           })
           .catch((err) => errorNotify(err.response.data.message));

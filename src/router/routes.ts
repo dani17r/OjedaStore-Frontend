@@ -1,5 +1,5 @@
+import { verifyToken } from "@middlewares/one";
 import { RouteRecordRaw } from "vue-router";
-import ActiveEmail from "@middlewares/activeEmail";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -51,8 +51,17 @@ const routes: RouteRecordRaw[] = [
     meta: {
       public: true,
     },
-    beforeEnter: [ActiveEmail],
-    component: () => import("@pages/ActiveEmail.vue"),
+    beforeEnter: [verifyToken],
+    component: () => import("@pages/Active.vue"),
+  },
+  {
+    path: "/reset-password/:token",
+    name: "forgot",
+    meta: {
+      public: true,
+    },
+    beforeEnter: [verifyToken],
+    component: () => import("@pages/Forgot.vue"),
   },
   {
     path: "/:catchAll(.*)*",

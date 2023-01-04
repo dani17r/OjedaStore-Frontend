@@ -14,5 +14,8 @@ export default {
     submit: "Accept",
     reset: "Reset",
   },
-  link: "Go to register",
+  links: {
+    goTo: "Go to register",
+    recoveryPassword: "I forgot my password",
+  },
 };

@@ -18,6 +18,10 @@ export default {
         },
         logout: "Logout",
       },
+      banner: {
+        text: "Please check your email to verify your account",
+        link: "Send again",
+      },
     },
   },
   pages: {

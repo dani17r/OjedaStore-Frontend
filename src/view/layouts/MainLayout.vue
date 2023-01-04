@@ -8,6 +8,10 @@
           <img src="/logo-250x41.png" width="250" />
         </q-toolbar-title>
 
+        <q-btn round flat icon="notifications" class="mr-4">
+          <q-badge floating color="red" label="4" />
+        </q-btn>
+
         <MenuUserRight />
       </q-toolbar>
     </q-header>
@@ -16,10 +20,12 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+    <BannerVerifyEmail />
   </q-layout>
 </template>
 
 <script setup lang="ts">
+import BannerVerifyEmail from "@components/BannerVerifyEmail.vue";
 import MenuUserRight from "@components/MenuUserRight.vue";
 import DrawerLeftOne from "@components/DrawerLeftOne.vue";
 import composableDrawers from "@composables/drawers";

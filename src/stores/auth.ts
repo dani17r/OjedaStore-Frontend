@@ -1,9 +1,16 @@
-import { errorNotify } from "@helps/customNotify";
+import { ForgotPasswordT, ResetPasswordT, LoginI } from "@interfaces/auth";
 import { useAccountStore } from "@stores/account";
 import { defineStore, storeToRefs } from "pinia";
+import { RouterT } from "@interfaces/general";
 import { removeSession } from "@tools/utils";
-import { LoginI } from "@interfaces/auth";
 import * as Auth from "@http/auth";
+import { Ref } from "vue";
+import {
+  autoDestroyNotify,
+  sendEmailNotify,
+  successNotify,
+  errorNotify,
+} from "@helps/customNotify";
 
 const accountStore = useAccountStore();
 const { account } = storeToRefs(accountStore);
@@ -27,6 +34,36 @@ export const useAuthStore = defineStore("auth", {
           removeSession();
         })
         .catch((err) => errorNotify(err.response.data.message));
+    },
+    sendVerifyEmail(route: RouterT, message: Ref<null>) {
+      Auth.activeEmail({
+        token: String(route.params.token),
+        model: "accounts",
+      })
+        .then((data) => {
+          setTimeout(() => {
+            message.value = data.message;
+            autoDestroyNotify("Esta pestaña se auto cerrara");
+          }, 200);
+        })
+        .catch((data) => {
+          setTimeout(() => {
+            message.value = data.response.data?.message;
+          }, 200);
+        });
+    },
+    sendForgotPassword(form: ForgotPasswordT, msg: string) {
+      Auth.forgotPassword(form)
+        .then(() => sendEmailNotify(msg))
+        .catch((err) => errorNotify(err.response.data.message));
+    },
+    resetPassword(form: ResetPasswordT, onReset: Function) {
+      Auth.resetPassword(form)
+        .then((data) => {
+          successNotify(data.message);
+          onReset();
+        })
+        .catch((err) => autoDestroyNotify(err.response.data.message));
     },
   },
 });

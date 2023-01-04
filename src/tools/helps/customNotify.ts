@@ -1,6 +1,6 @@
 import { Notify } from "quasar";
 
-export const verifyEmailNotify = (msg: string) => {
+export const sendEmailNotify = (msg: string) => {
   Notify.create({
     position: "bottom-right",
     type: "positive",
@@ -18,15 +18,21 @@ export const errorNotify = (msg: string) => {
   });
 };
 
+export const successNotify = (msg: string) => {
+  Notify.create({
+    position: "bottom-right",
+    type: "positive",
+    group: "success",
+    message: msg,
+  });
+};
+
 export const autoDestroyNotify = (msg: string, time = 300) => {
   Notify.create({
-    message: msg,
+    onDismiss: () => setTimeout(() => window.close(), time),
     position: "bottom-right",
-    type: "warning",
-    color: "red",
     group: "autoDestroy",
-    onDismiss: () => {
-      setTimeout(() => window.close(), time);
-    },
+    type: "negative",
+    message: msg,
   });
 };

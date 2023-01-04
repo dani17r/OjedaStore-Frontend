@@ -67,15 +67,14 @@
         </div>
       </q-form>
       <div class="mt-6">
-        <RouterLink :to="{ name: 'login' }">Ir a login</RouterLink>
+        <RouterLink class="contents" :to="{ name: 'login' }">Ir a login</RouterLink>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { empty, mini } from "@helps/inputsValidations";
-import { verifyValue } from "@helps/inputsValidations";
+import { empty, mini, verifyValue } from "@helps/inputsValidations";
 import { useAccountStore } from "@stores/account";
 import { ref, reactive } from "vue";
 
@@ -92,7 +91,7 @@ const form = reactive({
 });
 
 const register = () => {
-  accept.value = accountStore.create(form, onReset);
+  accountStore.create(form, onReset);
 };
 
 const onReset = () => {

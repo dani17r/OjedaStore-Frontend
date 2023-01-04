@@ -1,6 +1,13 @@
-import { LoginI, LogoutT, VerifyEmailT, ActiveEmailT } from "@interfaces/auth";
 import { removeSession } from "@tools/utils";
 import { api } from "@boot/axios";
+import {
+  ForgotPasswordT,
+  ResetPasswordT,
+  ActiveEmailT,
+  VerifyEmailT,
+  LogoutT,
+  LoginI,
+} from "@interfaces/auth";
 
 export const login = async (form: LoginI) => {
   const resp = await api.post("/auth/login", form);
@@ -27,5 +34,15 @@ export const verifyEmail = async (form: VerifyEmailT) => {
 
 export const activeEmail = async (form: ActiveEmailT) => {
   const resp = await api.post(`/auth/email/active`, form);
+  return resp.data;
+};
+
+export const forgotPassword = async (form: ForgotPasswordT) => {
+  const resp = await api.post(`/auth/password/recovery`, form);
+  return resp.data;
+};
+
+export const resetPassword = async (form: ResetPasswordT) => {
+  const resp = await api.post(`/auth/password/reset`, form);
   return resp.data;
 };

@@ -17,6 +17,10 @@ export default {
         },
         logout: "Salir",
       },
+      banner: {
+        text: "Por favor revisa tu email para verificar la cuenta",
+        link: "Enviar de nuevo",
+      },
     },
   },
   pages: {

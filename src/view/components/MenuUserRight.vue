@@ -6,10 +6,10 @@
         <q-item-section avatar> <q-icon name="language" /></q-item-section>
         <q-item-section class="capitalize">{{ langDefault }}</q-item-section>
       </q-item>
-      <q-item clickable @click="toggleDark()">
-        <q-item-section avatar> <q-icon :name="modeDark.icon" /></q-item-section>
+      <q-item clickable @click="toggle()">
+        <q-item-section avatar> <q-icon :name="mode.icon" /></q-item-section>
         <q-item-section>{{
-          $t(`layouts.main.items.modeDark.${modeDark.title}`)
+          $t(`layouts.main.items.modeDark.${camelCase(mode.title)}`)
         }}</q-item-section>
       </q-item>
       <q-item clickable @click="authStore.logout()">
@@ -25,8 +25,9 @@ import AvatarAccount from "@components/AvatarAccount.vue";
 import composableModeDark from "@composables/modeDark";
 import composableLang from "@composables/modeLang";
 import { useAuthStore } from "@stores/auth";
+import { camelCase } from "lodash";
 
 const authStore = useAuthStore();
-const { modeDark, toggleDark } = composableModeDark();
+const { mode, toggle } = composableModeDark();
 const { langDefault, toggleLang } = composableLang();
 </script>

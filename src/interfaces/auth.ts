@@ -21,3 +21,8 @@ export type ActiveEmailT = Omit<
   LoginI & { token: string },
   "password" | "email"
 >;
+export type ForgotPasswordT = Omit<LoginI, "password">;
+export type ResetPasswordT = Pick<
+  SessionI & { new_password: String },
+  "token" | "model" | "new_password"
+>;
