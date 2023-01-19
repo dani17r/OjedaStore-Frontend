@@ -73,14 +73,13 @@ const isPwd = ref(true);
 const form = reactive({
   email: "marcos1922@gmail.com",
   password: "123456789",
-  model: "accounts",
   extend: false,
 });
 
 const sendEmailForgot = () => {
   let validate = inputEmail.value.validate();
   if (validate) {
-    let send = pick(form, ["email", "model"]);
+    let send = pick(form, ["email"]);
     authStore.sendForgotPassword(send, "Revisa tu email.");
   }
 };

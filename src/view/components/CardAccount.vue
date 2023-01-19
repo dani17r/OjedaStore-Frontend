@@ -6,12 +6,12 @@
       </q-item-section>
       <q-item-section class="truncate pr-2">
         <q-item-label class="text-lg font-semibold">
-          {{ startCase(String(account?.fullname)) }}
+          {{ startCase(String(user?.fullname)) }}
         </q-item-label>
-        <q-item-label class="font-semibold" caption>{{ account?.username }}</q-item-label>
+        <q-item-label class="font-semibold" caption>{{ user?.username }}</q-item-label>
         <hr class="my-2" />
         <q-item-label caption>
-          {{ account?.email }}
+          {{ user?.email }}
         </q-item-label>
       </q-item-section>
     </q-item>
@@ -20,10 +20,10 @@
 
 <script setup lang="ts">
 import AvatarAccount from "@components/AvatarAccount.vue";
-import { useAccountStore } from "@stores/account";
+import { useUserStore } from "@stores/user";
 import { storeToRefs } from "pinia";
 import { startCase } from "lodash";
 
-const accountStore = useAccountStore();
-const { account } = storeToRefs(accountStore);
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
 </script>

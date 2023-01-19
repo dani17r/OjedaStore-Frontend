@@ -20,14 +20,14 @@
 </template>
 
 <script setup lang="ts">
-import { useAccountStore } from "@stores/account";
+import { useUserStore } from "@stores/user";
 import { Notify, SessionStorage } from "quasar";
 import * as httpAuth from "@http/auth";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
-const accountStore = useAccountStore();
-const { emailIsVerify, account } = storeToRefs(accountStore);
+const userStore = useUserStore();
+const { emailIsVerify, user } = storeToRefs(userStore);
 let nameSend = "sendEmailVeriyAccount";
 
 const isSend = () => {
@@ -42,10 +42,7 @@ const closeBanner = () => (close.value = true);
 
 const sendAgainVerifyEmail = () => {
   httpAuth
-    .verifyEmail({
-      email: String(account.value?.email),
-      model: String(account.value?.model),
-    })
+    .verifyEmail(String(user.value?.email), "users")
     .then(() => {
       let timestamp = new Date();
       let deadline = timestamp.setHours(timestamp.getHours() + 5);

@@ -1,5 +1,5 @@
 import { Cookies } from "quasar";
 
-export const removeSession = () => {
-  Cookies.remove("session");
+export const removeSession = (model: string) => {
+  Cookies.remove(`session_${model}`);
 };

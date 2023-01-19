@@ -5,15 +5,15 @@
 </template>
 
 <script setup lang="ts">
-import { useAccountStore } from "@stores/account";
+import { useUserStore } from "@stores/user";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
 
-const accountStore = useAccountStore();
-const { account } = storeToRefs(accountStore);
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
 
 const avatar = computed(() => {
-  let images = account.value?.images;
+  let images = user.value?.images;
   if (!images) return "/avatar_placeholder.png";
   if (!images.avatar) return "/avatar_placeholder.png";
   return String(images.avatar);

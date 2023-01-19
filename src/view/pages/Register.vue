@@ -75,10 +75,10 @@
 
 <script setup>
 import { empty, mini, verifyValue } from "@helps/inputsValidations";
-import { useAccountStore } from "@stores/account";
+import { useUserStore } from "@stores/user";
 import { ref, reactive } from "vue";
 
-const accountStore = useAccountStore();
+const userStore = useUserStore();
 
 const verifyPassword = ref("12345678");
 const accept = ref(false);
@@ -91,7 +91,7 @@ const form = reactive({
 });
 
 const register = () => {
-  accountStore.create(form, onReset);
+  userStore.create(form, onReset);
 };
 
 const onReset = () => {

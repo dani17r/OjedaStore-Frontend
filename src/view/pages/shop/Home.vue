@@ -64,9 +64,9 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-// import { useAccountStore } from "@stores/account";
+// import { useUserStore } from "@stores/account";
 // import { storeToRefs } from "pinia";
 const slide = ref(1);
-// const accountStore = useAccountStore();
-// const { account } = storeToRefs(accountStore);
+// const userStore = useUserStore();
+// const { user } = storeToRefs(userStore);
 </script>

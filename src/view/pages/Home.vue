@@ -1,12 +1,12 @@
 <template>
   <h1>Inicio</h1>
-  <div>pintando datos privados: {{ account }}</div>
+  <div>pintando datos privados: {{ user }}</div>
 </template>
 
 <script setup lang="ts">
-import { useAccountStore } from "@stores/account";
+import { useUserStore } from "@stores/user";
 import { storeToRefs } from "pinia";
 
-const accountStore = useAccountStore();
-const { account } = storeToRefs(accountStore);
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
 </script>

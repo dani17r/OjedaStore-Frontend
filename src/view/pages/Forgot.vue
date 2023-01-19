@@ -58,7 +58,6 @@ const verifyPassword = ref("");
 const isPwd = ref(true);
 
 const form = reactive({
-  model: "accounts",
   new_password: "",
   token: "",
 });

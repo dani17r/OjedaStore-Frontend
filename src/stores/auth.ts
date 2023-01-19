@@ -1,5 +1,5 @@
 import { ForgotPasswordT, ResetPasswordT, LoginI } from "@interfaces/auth";
-import { useAccountStore } from "@stores/account";
+import { useUserStore } from "@stores/user";
 import { defineStore, storeToRefs } from "pinia";
 import { RouterT } from "@interfaces/general";
 import { removeSession } from "@tools/utils";
@@ -12,34 +12,37 @@ import {
   errorNotify,
 } from "@helps/customNotify";
 
-const accountStore = useAccountStore();
-const { account } = storeToRefs(accountStore);
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
+
+const model = "users";
 
 export const useAuthStore = defineStore("auth", {
   actions: {
     login(form: LoginI) {
-      Auth.login(form)
+      Auth.login(form, model)
         .then(() => this.router.push({ name: "home-shop" }))
         .catch((err) => errorNotify(err.response.data.message));
     },
     logout() {
       const credentials = {
-        email: String(account.value?.email),
-        model: String(account.value?.model),
+        email: String(user.value?.email),
       };
-      Auth.logout(credentials)
+      Auth.logout(credentials, model)
         .then(() => {
           this.router.push({ name: "login" });
-          accountStore.remove();
-          removeSession();
+          userStore.remove();
+          removeSession(model);
         })
         .catch((err) => errorNotify(err.response.data.message));
     },
     sendVerifyEmail(route: RouterT, message: Ref<null>) {
-      Auth.activeEmail({
-        token: String(route.params.token),
-        model: "accounts",
-      })
+      Auth.activeEmail(
+        {
+          token: String(route.params.token),
+        },
+        model
+      )
         .then((data) => {
           setTimeout(() => {
             message.value = data.message;
@@ -53,12 +56,12 @@ export const useAuthStore = defineStore("auth", {
         });
     },
     sendForgotPassword(form: ForgotPasswordT, msg: string) {
-      Auth.forgotPassword(form)
+      Auth.forgotPassword(form, model)
         .then(() => sendEmailNotify(msg))
         .catch((err) => errorNotify(err.response.data.message));
     },
     resetPassword(form: ResetPasswordT, onReset: Function) {
-      Auth.resetPassword(form)
+      Auth.resetPassword(form, model)
         .then((data) => {
           successNotify(data.message);
           onReset();
