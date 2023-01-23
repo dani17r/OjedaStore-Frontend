@@ -1,35 +1,40 @@
-import { verifyToken } from "@middlewares/one";
+import { verifyToken, verifyProfile } from "@middlewares/one";
 import { RouteRecordRaw } from "vue-router";
 
 const routes: RouteRecordRaw[] = [
   {
     path: "/shop",
-    component: () => import("@layouts/MainLayout.vue"),
+    components: { auth: () => import("@layouts/MainLayout.vue") },
     meta: {
       private: true,
     },
     children: [
       {
-        path: "",
-        name: "home-shop",
-        component: () => import("@pages/shop/Home.vue"),
+        path: "profile/:id",
+        name: "profile-user",
+        beforeEnter: [verifyProfile],
+        component: () => import("@pages/user/Profile.vue"),
       },
       {
-        path: "profile",
-        name: "profile-shop",
-        component: () => import("@pages/shop/Account.vue"),
+        path: "profile/:id/error",
+        name: "profile-user-error",
+        component: () => import("@pages/errors/Profile.vue"),
       },
     ],
   },
   {
     path: "/",
-    component: () => import("@layouts/PublicLayout.vue"),
+    components: {
+      default: () => import("@layouts/PublicLayout.vue"),
+      auth: () => import("@layouts/MainLayout.vue"),
+    },
     children: [
       {
         path: "",
         name: "home",
         meta: {
-          public: true,
+          protected: true,
+          layout: "auth",
         },
         component: () => import("@pages/Home.vue"),
       },

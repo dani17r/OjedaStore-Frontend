@@ -5,7 +5,8 @@ import { api } from "@boot/axios";
 api.defaults.headers["model"] = "users";
 
 export const one = async (_id: string, query?: QueryI) => {
-  const resp = await api.get(`/users/${_id}?${query}`);
+  const isQuery = query ? `?${query}` : "";
+  const resp = await api.get(`/users/${_id}${isQuery}`);
   return resp.data;
 };
 

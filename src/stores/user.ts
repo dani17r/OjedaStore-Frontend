@@ -11,6 +11,7 @@ export const useUserStore = defineStore("user", {
       updated: false,
     },
     user: null,
+    profile: null,
   }),
   getters: {
     emailIsVerify: (state) => {
@@ -31,6 +32,18 @@ export const useUserStore = defineStore("user", {
           if (newUserString != userString) {
             this.user = newUser;
           }
+        }
+      }
+    },
+    setProfile(newProfile: UserT) {
+      // verificamos que no sea null
+      if (newProfile) {
+        let newProfileString = JSON.stringify(newProfile);
+        let profileString = JSON.stringify(this.profile);
+
+        //Si son diferentes entonces insertamos el usuario.
+        if (newProfileString != profileString) {
+          this.profile = newProfile;
         }
       }
     },

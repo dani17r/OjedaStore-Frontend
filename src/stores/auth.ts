@@ -19,30 +19,24 @@ const model = "users";
 
 export const useAuthStore = defineStore("auth", {
   actions: {
-    login(form: LoginI) {
-      Auth.login(form, model)
-        .then(() => this.router.push({ name: "home-shop" }))
+    async login(form: LoginI) {
+      return Auth.login(form, model)
+        .then(() => this.router.push({ name: "home" }))
         .catch((err) => errorNotify(err.response.data.message));
     },
-    logout() {
-      const credentials = {
-        email: String(user.value?.email),
-      };
-      Auth.logout(credentials, model)
+
+    async logout() {
+      return Auth.logout(String(user.value?.email), model)
         .then(() => {
-          this.router.push({ name: "login" });
+          this.router.push({ name: "home" });
           userStore.remove();
           removeSession(model);
         })
         .catch((err) => errorNotify(err.response.data.message));
     },
-    sendVerifyEmail(route: RouterT, message: Ref<null>) {
-      Auth.activeEmail(
-        {
-          token: String(route.params.token),
-        },
-        model
-      )
+
+    async sendVerifyEmail(route: RouterT, message: Ref<null>) {
+      return Auth.activeEmail(String(route.params.token), model)
         .then((data) => {
           setTimeout(() => {
             message.value = data.message;
@@ -55,16 +49,18 @@ export const useAuthStore = defineStore("auth", {
           }, 200);
         });
     },
-    sendForgotPassword(form: ForgotPasswordT, msg: string) {
-      Auth.forgotPassword(form, model)
+
+    async sendForgotPassword(form: ForgotPasswordT, msg: string) {
+      return Auth.forgotPassword(form, model)
         .then(() => sendEmailNotify(msg))
         .catch((err) => errorNotify(err.response.data.message));
     },
-    resetPassword(form: ResetPasswordT, onReset: Function) {
-      Auth.resetPassword(form, model)
+
+    async resetPassword(form: ResetPasswordT, resetForm: Function) {
+      return Auth.resetPassword(form, model)
         .then((data) => {
           successNotify(data.message);
-          onReset();
+          resetForm();
         })
         .catch((err) => autoDestroyNotify(err.response.data.message));
     },

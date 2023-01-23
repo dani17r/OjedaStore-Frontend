@@ -12,6 +12,7 @@
     "@quasar/extras": "^1.15.8",
     "@types/lodash": "^4.14.191",
     "axios": "^1.2.1",
+    "date-fns": "^2.29.3",
     "lodash": "^4.17.21",
     "pinia": "^2.0.28",
     "quasar": "^2.11.1",

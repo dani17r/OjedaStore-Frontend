@@ -1,7 +1,7 @@
 <template>
   <div class="full-width row justify-center items-center content-center q-mb-xl">
     <div class="full-width q-mt-xl" style="max-width: 400px">
-      <q-form @submit="register()" @reset="onReset" class="q-gutter-lg">
+      <q-form @submit="register()" @reset="onReset" ref="elementForm" class="q-gutter-lg">
         <q-input
           :label="$t('pages.register.inputs.email.label')"
           :hint="$t('pages.register.inputs.email.hint')"
@@ -81,8 +81,10 @@ import { ref, reactive } from "vue";
 const userStore = useUserStore();
 
 const verifyPassword = ref("12345678");
+const elementForm = ref(null);
 const accept = ref(false);
 const isPwd = ref(true);
+
 const form = reactive({
   email: "test1@test.com",
   password: "12345678",
@@ -91,7 +93,8 @@ const form = reactive({
 });
 
 const register = () => {
-  userStore.create(form, onReset);
+  const resetForm = elementForm.value.reset;
+  userStore.create(form, resetForm);
 };
 
 const onReset = () => {

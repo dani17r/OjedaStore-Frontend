@@ -61,13 +61,19 @@
 </template>
 
 <script setup>
+// Imports
 import { empty } from "@helps/inputsValidations";
 import { useAuthStore } from "@stores/auth";
 import { ref, reactive } from "vue";
 import { pick } from "lodash";
+// End Imports
 
+// From Outside
 const authStore = useAuthStore();
-const inputEmail = ref(null);
+// End - From Outside
+
+// Instances
+const inputEmail = ref(null); // refElement
 const isPwd = ref(true);
 
 const form = reactive({
@@ -75,10 +81,11 @@ const form = reactive({
   password: "123456789",
   extend: false,
 });
+// End - Instances
 
+// Methods
 const sendEmailForgot = () => {
-  let validate = inputEmail.value.validate();
-  if (validate) {
+  if (inputEmail.value.validate()) {
     let send = pick(form, ["email"]);
     authStore.sendForgotPassword(send, "Revisa tu email.");
   }
@@ -90,4 +97,5 @@ const onReset = () => {
   isPwd.value = true;
   form.email = null;
 };
+// End - Methods
 </script>

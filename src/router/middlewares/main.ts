@@ -27,7 +27,7 @@ export default boot(({ router, store }) => {
         if (!!to.meta.protected) next();
         else {
           if (!!to.meta.private) status ? next() : next({ name: "login" });
-          else !status ? next() : next({ name: "home-shop" });
+          else !status ? next() : next({ name: "home" });
         }
       } else {
         if (!!to.meta.protected) next();

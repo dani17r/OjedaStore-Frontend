@@ -4,9 +4,7 @@
       <q-toolbar class="bg-two">
         <q-btn flat round icon="menu" aria-label="Menu" @click="toggleLeftDrawer()" />
 
-        <q-toolbar-title>
-          <img src="/logo-250x41.png" width="250" />
-        </q-toolbar-title>
+        <LogoHeader />
 
         <q-btn round flat icon="notifications" class="mr-4">
           <q-badge floating color="red" label="4" />
@@ -29,6 +27,7 @@ import BannerVerifyEmail from "@components/BannerVerifyEmail.vue";
 import MenuUserRight from "@components/MenuUserRight.vue";
 import DrawerLeftOne from "@components/DrawerLeftOne.vue";
 import composableDrawers from "@composables/drawers";
+import LogoHeader from "@components/LogoHeader.vue";
 
 const { toggleLeftDrawer } = composableDrawers();
 </script>

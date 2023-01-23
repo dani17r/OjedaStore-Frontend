@@ -1,6 +1,6 @@
 <template>
   <q-btn flat round>
-    <AvatarAccount />
+    <AvatarAccount :previewImage="false" />
     <q-menu anchor="bottom right" self="top end" :offset="[-2, 5]">
       <q-item clickable @click="toggleLang()">
         <q-item-section avatar> <q-icon name="language" /></q-item-section>

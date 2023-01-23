@@ -3,6 +3,7 @@ import { LoginI } from "@interfaces/auth";
 
 export interface ImagesI {
   avatar?: string;
+  header?: string;
 }
 
 export interface RecordsI {
@@ -53,6 +54,7 @@ export type UpdateUserI = Omit<
 
 export interface StateI {
   lifecycles: LifecyclesI;
+  profile: UserT;
   user: UserT;
 }
 

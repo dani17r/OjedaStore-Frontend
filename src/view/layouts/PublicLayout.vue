@@ -2,16 +2,14 @@
   <q-layout view="lHh Lpr lFf">
     <q-header>
       <q-toolbar class="bg-two">
-        <q-toolbar-title>
-          <img src="/logo-250x41.png" width="250" />
-        </q-toolbar-title>
+        <LogoHeader />
 
         <q-btn
           :label="$t(`layouts.public.btn.${uri.name}`)"
-          style="min-height: 50px"
           class="capitalize"
           :icon="uri.icon"
           :to="uri"
+          stretch
           flat
         />
         <ButtomLang />
@@ -36,6 +34,7 @@
 import { onBeforeRouteUpdate, RouteLocationNormalized } from "vue-router";
 import ButtomLang from "@components/ButtomLang.vue";
 import ToggleDark from "@components/ToggleDark.vue";
+import LogoHeader from "@components/LogoHeader.vue";
 import { useRoute } from "vue-router";
 import { ref } from "vue";
 const route = useRoute();

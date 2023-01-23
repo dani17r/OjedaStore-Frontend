@@ -1,11 +1,5 @@
 <template>
-  <q-btn
-    style="min-height: 50px"
-    @click="toggleLang()"
-    :label="langDefault"
-    icon="language"
-    flat
-  />
+  <q-btn @click="toggleLang()" :label="langDefault" icon="language" stretch flat />
 </template>
 
 <script setup lang="ts">

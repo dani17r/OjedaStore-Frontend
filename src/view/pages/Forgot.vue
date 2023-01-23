@@ -2,8 +2,9 @@
   <div class="full-width row justify-center items-center content-center q-mb-xl">
     <div class="full-width q-mt-xl" style="max-width: 400px">
       <q-form
-        @submit="authStore.resetPassword(form, onReset)"
+        @submit="resetPassword"
         @reset="onReset"
+        ref="elementForm"
         class="q-gutter-lg"
       >
         <q-input
@@ -46,27 +47,45 @@
 </template>
 
 <script setup>
+// Imports
 import { empty, verifyValue } from "@helps/inputsValidations";
+import { ref, reactive, onMounted } from "vue";
 import { useAuthStore } from "@stores/auth";
 import { useRoute } from "vue-router";
-import { ref, reactive, onMounted } from "vue";
+// End - Imports
 
+// From Outside
 const authStore = useAuthStore();
 const route = useRoute();
+// End - From Outside
 
+// Instances
 const verifyPassword = ref("");
+const elementForm = ref(null); //refElement
 const isPwd = ref(true);
 
 const form = reactive({
   new_password: "",
   token: "",
 });
+// End - Instances
 
+// Methods
 const onReset = () => {
   verifyPassword.value = null;
   form.new_password = null;
   isPwd.value = true;
 };
 
-onMounted(() => (form.token = route.params.token));
+const resetPassword = () => {
+  let resetForm = elementForm.value.reset();
+  authStore.resetPassword(form, resetForm);
+};
+// End - Methods
+
+// Lifecycle
+onMounted(() => {
+  form.token = route.params.token;
+});
+// End - Lifecycle
 </script>

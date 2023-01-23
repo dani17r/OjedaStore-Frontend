@@ -14,17 +14,22 @@
 import CardAccount from "@components/CardAccount.vue";
 import composableDrawers from "@composables/drawers";
 import ButtomLink from "@components/ButtomLink.vue";
+import { useUserStore } from "@stores/user";
+import { storeToRefs } from "pinia";
+
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
 
 const { drawerOne, changeStorageDrawerOne } = composableDrawers();
 const items = [
   {
-    to: { name: "home-shop" },
+    to: { name: "home" },
     description: "start page",
     title: "Home",
     icon: "home",
   },
   {
-    to: { name: "profile-shop" },
+    to: { name: "profile-user", params: { id: user?.value?._id } },
     description: "your account",
     title: "Profile",
     icon: "account_circle",
