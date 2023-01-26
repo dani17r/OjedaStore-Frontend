@@ -1,7 +1,8 @@
 <template>
   <div
-    class="text-white text-center flex flex-center"
+    class="text-center flex flex-center"
     style="height: 100vh; margin-top: -50px"
+    v-if="props.isError"
   >
     <div>
       <div style="font-size: 10vh">Not fount user</div>
@@ -19,4 +20,17 @@
       />
     </div>
   </div>
+  <div v-else>
+    <slot />
+  </div>
 </template>
+
+<script lang="ts" setup>
+interface PropsI {
+  isError: boolean;
+}
+
+const props = withDefaults(defineProps<PropsI>(), {
+  isError: false,
+});
+</script>

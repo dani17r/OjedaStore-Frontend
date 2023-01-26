@@ -6,7 +6,9 @@ api.defaults.headers["model"] = "users";
 
 export const one = async (_id: string, query?: QueryI) => {
   const isQuery = query ? `?${query}` : "";
-  const resp = await api.get(`/users/${_id}${isQuery}`);
+  const resp = await api
+    .get(`/users/${_id}${isQuery}`)
+    .catch(() => ({ data: null }));
   return resp.data;
 };
 

@@ -1,5 +1,11 @@
-import { StateI, UserT, CreateUserI } from "@interfaces/user";
 import { errorNotify, sendEmailNotify } from "@helps/customNotify";
+import {
+  StateI,
+  UserT,
+  CreateUserI,
+  ImageT,
+  nameImage,
+} from "@interfaces/user";
 import * as httpUser from "@http/user";
 import * as httpAuth from "@http/auth";
 import { defineStore } from "pinia";
@@ -14,8 +20,10 @@ export const useUserStore = defineStore("user", {
     profile: null,
   }),
   getters: {
-    emailIsVerify: (state) => {
-      return state.user ? !state.user.verifiedAt : false;
+    emailIsVerify: (state) => (state.user ? !state.user.verifiedAt : false),
+    currentUserOnly: (state) => state.user?._id == state.profile?._id,
+    images: (state) => (name: nameImage) => {
+      return state.user?.images[name] as Partial<ImageT>;
     },
   },
   actions: {
@@ -47,6 +55,9 @@ export const useUserStore = defineStore("user", {
         }
       }
     },
+    removeProfile() {
+      if (this.profile != null) this.profile = null;
+    },
     remove() {
       if (this.lifecycles.mounted) {
         this.lifecycles.mounted = false;
@@ -68,6 +79,9 @@ export const useUserStore = defineStore("user", {
         .create(form)
         .then((_data: UserT) => verifyEmail())
         .catch((err) => errorNotify(err.response.data.message));
+    },
+    changeImage(field: "herou" | "avatar", value: ImageT) {
+      if (this.user?.images) this.user.images[field] = value;
     },
   },
 });

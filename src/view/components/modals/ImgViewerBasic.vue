@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import previewImageComposable from "@composables/previewImg";
+import imageViewerComposable from "@composables/imageViewer";
 
-const previewImg = previewImageComposable();
+const previewImg = imageViewerComposable();
 </script>

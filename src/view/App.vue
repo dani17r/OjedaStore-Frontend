@@ -1,10 +1,12 @@
 <template>
   <RouterView :name="viewLayout" />
-  <PreviewImageDialog />
+  <ImgViewerBasic />
+  <ImgChangeUpload />
 </template>
 
 <script setup lang="ts">
-import PreviewImageDialog from "@components/PreviewImageDialog.vue";
+import ImgChangeUpload from "@components/modals/ImgChangeUpload.vue";
+import ImgViewerBasic from "@components/modals/ImgViewerBasic.vue";
 import { useUserStore } from "@stores/user";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";

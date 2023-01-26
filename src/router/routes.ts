@@ -1,24 +1,19 @@
-import { verifyToken, verifyProfile } from "@middlewares/one";
+import { verifyToken, verifyProfile, authUser } from "@middlewares/one";
 import { RouteRecordRaw } from "vue-router";
 
 const routes: RouteRecordRaw[] = [
   {
-    path: "/shop",
+    path: "/user",
     components: { auth: () => import("@layouts/MainLayout.vue") },
     meta: {
       private: true,
     },
     children: [
       {
-        path: "profile/:id",
+        path: ":id",
         name: "profile-user",
-        beforeEnter: [verifyProfile],
+        beforeEnter: [verifyProfile, authUser],
         component: () => import("@pages/user/Profile.vue"),
-      },
-      {
-        path: "profile/:id/error",
-        name: "profile-user-error",
-        component: () => import("@pages/errors/Profile.vue"),
       },
     ],
   },

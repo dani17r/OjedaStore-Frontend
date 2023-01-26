@@ -1,9 +1,15 @@
+import { Coordinates, CropperResult } from "vue-advanced-cropper";
 import { LifecyclesI } from "@interfaces/general";
 import { LoginI } from "@interfaces/auth";
 
+export type ImageT = {
+  coordinates: Partial<Coordinates> | null;
+  image: Partial<CropperResult["image"]> | null;
+};
+
 export interface ImagesI {
-  avatar?: string;
-  header?: string;
+  avatar: ImageT;
+  herou: ImageT;
 }
 
 export interface RecordsI {
@@ -22,9 +28,9 @@ export interface UserI {
   records?: RecordsI;
   phones?: string[];
   locations?: any[];
-  images?: ImagesI;
   fullname: string;
   username: string;
+  images: ImagesI;
   email: string;
   _id?: string;
 }
@@ -52,10 +58,12 @@ export type UpdateUserI = Omit<
   | "_id"
 >;
 
+export type UserT = UserI | null;
+
+export type nameImage = "herou" | "avatar";
+
 export interface StateI {
   lifecycles: LifecyclesI;
   profile: UserT;
   user: UserT;
 }
-
-export type UserT = UserI | null;

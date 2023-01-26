@@ -13,25 +13,30 @@ export default boot(({ router, store }) => {
   router.beforeEach(async (to, from, next) => {
     const session: SessionT = Cookies.get(`session_${model}`);
 
-    if (!!to.meta.public) next();
+    if (Boolean(to.meta.public)) next();
     else {
       if (session) {
         let status = await Auth.status(model);
+
         if (status) {
-          userStore.set({
+          const user = {
             ...status.account,
             ...pick(session, ["expires_at"]),
-          });
+          };
+          userStore.set(user);
+          to.meta.user = user;
+          to.meta.userActions = userStore;
         }
 
-        if (!!to.meta.protected) next();
+        if (Boolean(to.meta.protected)) next();
         else {
-          if (!!to.meta.private) status ? next() : next({ name: "login" });
-          else !status ? next() : next({ name: "home" });
+          if (Boolean(to.meta.private))
+            status ? next() : next({ name: "login" });
+          else status ? next({ name: "home" }) : next();
         }
       } else {
-        if (!!to.meta.protected) next();
-        else !to.meta.private ? next() : next({ name: "login" });
+        if (Boolean(to.meta.protected)) next();
+        else Boolean(to.meta.private) ? next({ name: "login" }) : next();
       }
     }
   });
