@@ -1,17 +1,25 @@
 <template>
   <RouterView :name="viewLayout" />
   <ImgViewerBasic />
-  <ImgChangeUpload />
+  <UploadImageChange />
 </template>
 
 <script setup lang="ts">
-import ImgChangeUpload from "@components/modals/ImgChangeUpload.vue";
+//Components
+import UploadImageChange from "@components/modals/UploadImageChange.vue";
 import ImgViewerBasic from "@components/modals/ImgViewerBasic.vue";
+
+//Internal Project
 import { useUserStore } from "@stores/user";
+
+//Libraries
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
 
+//Stores
 let userStore = useUserStore();
 const { user } = storeToRefs(userStore);
+
+//Computeds
 const viewLayout = computed(() => (user.value == null ? "default" : "auth"));
 </script>

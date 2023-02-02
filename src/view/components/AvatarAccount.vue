@@ -5,12 +5,23 @@
     :color="props.color"
     :size="props.size"
   >
-    <img :src="avatar" :width="props.size" />
+    <q-img
+      v-if="!profile?.images.avatar.image?.src"
+      :src="'/avatar_placeholder.png'"
+      :width="props.size"
+    />
+    <Preview
+      :style="`width: ${props.size}; height: ${props.size}`"
+      :coordinates="profile?.images.avatar.coordinates"
+      :image="profile?.images.avatar.image"
+      v-else
+    />
   </q-avatar>
 </template>
 
 <script setup lang="ts">
 import imageViewerComposable from "@composables/imageViewer";
+import { Preview } from "vue-advanced-cropper";
 import { useUserStore } from "@stores/user";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";

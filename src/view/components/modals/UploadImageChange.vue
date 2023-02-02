@@ -5,27 +5,26 @@
         <div class="content-cropper">
           <div class="loading-image">
             <q-spinner-ios color="primary" size="30px" v-show="loading" />
-            {{ getCropper.image?.src }}
           </div>
           <div v-if="getCropper.image?.src">
             <Cropper
               :default-position="getCropper.coordinates"
-              :stencil-size="{ height: 90, width: 600 }"
               :default-size="getCropper.coordinates"
-              :stencil-props="{ handlers: {} }"
               :src="getCropper.image?.src"
+              v-bind="bindMode[field]"
               @ready="loading = false"
               ref="elementImgCropper"
               class="cropper"
             />
           </div>
+
           <div v-else>
             <q-img :src="'/herou_placeholder.png'" fit="cover" />
           </div>
         </div>
       </q-card-section>
 
-      <q-card-actions align="right">
+      <q-card-actions class="flex justify-between">
         <button class="button">
           <input type="file" @change="loadImage" accept="image/*" />
         </button>
@@ -36,24 +35,53 @@
 </template>
 
 <script setup lang="ts">
-import { Cropper, CropperResult } from "vue-advanced-cropper";
-import imageChangeComposable from "@composables/imgChange";
+import { Cropper, CropperResult, CircleStencil } from "vue-advanced-cropper";
+import imageChangeComposable from "@composables/uploadImageChange";
 import { useUserStore } from "@stores/user";
+import * as httpUser from "@http/user";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
 const userStore = useUserStore();
-const { images } = storeToRefs(userStore);
+const { images, user } = storeToRefs(userStore);
 const { modal, field, getCropper, setCropper, resetCropper } = imageChangeComposable();
 
 const elementImgCropper = ref<typeof Cropper>();
+const tempImageFile = ref<Blob>();
 const loading = ref(true);
+
+const bindMode = {
+  avatar: {
+    "stencil-component": CircleStencil,
+    "stencil-size": { height: 320, width: 320 },
+  },
+  herou: {
+    "stencil-size": { height: 90, width: 600 },
+    "stencil-props": { handlers: {} },
+  },
+};
 
 const saveImage = () => {
   const { coordinates, image }: CropperResult = elementImgCropper.value?.getResult();
-  const coord = { ...coordinates, top: coordinates.top - 10 };
-  userStore.changeImage(field.value, { coordinates: coord, image });
-  setCropper({ coordinates: coord, image });
+  const images = { coordinates: { ...coordinates, top: coordinates.top - 10 }, image };
+
+  userStore.changeImage(field.value, images);
+  setCropper(images);
+
+  if (tempImageFile.value) {
+    httpUser.uploadImage({
+      file: tempImageFile.value as Blob,
+      _id: user.value?._id as string,
+      field: field.value,
+      data: images,
+    });
+  } else {
+    httpUser.updateImage({
+      _id: user.value?._id as string,
+      field: field.value,
+      data: images,
+    });
+  }
 };
 
 const loadImage = (event: Event) => {
@@ -65,7 +93,10 @@ const loadImage = (event: Event) => {
 
     const reader = new FileReader();
     reader.readAsArrayBuffer(files[0]);
-    reader.onload = () => setCropper({ image: { src: blob } });
+    reader.onload = () => {
+      setCropper({ image: { src: blob } });
+      tempImageFile.value = files[0];
+    };
   }
 };
 
@@ -74,6 +105,7 @@ const resetComponent = () => {
   const imgUser = images.value(field.value).image?.src;
   if (imgCropper != imgUser) resetCropper();
   else resetCropper(images.value(field.value));
+  loading.value = true;
 };
 </script>
 

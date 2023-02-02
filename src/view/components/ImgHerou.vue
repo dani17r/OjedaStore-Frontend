@@ -17,10 +17,11 @@
     />
     <q-btn
       class="text-white absolute bottom-5 right-5"
-      @click="toggleModal()"
+      @click="activeImageUploadHerou()"
+      style="background-color: #5e33af"
       v-show="showEditeImage"
       v-if="currentUserOnly"
-      icon="linear_scale"
+      icon="crop_original"
       fab-mini
       round
       flat
@@ -29,24 +30,35 @@
 </template>
 
 <script setup lang="ts">
-import imageChangeComposable from "@composables/imgChange";
-import { onBeforeRouteUpdate } from "vue-router";
+//Internal Project
+import imageChangeComposable from "@composables/uploadImageChange";
 import { verifyProfile } from "@middlewares/one";
-import { Preview } from "vue-advanced-cropper";
 import { useUserStore } from "@stores/user";
-import { onMounted, ref } from "vue";
-import { storeToRefs } from "pinia";
 
+//Libraries
+import { onBeforeRouteUpdate } from "vue-router";
+import { Preview } from "vue-advanced-cropper";
+import { storeToRefs } from "pinia";
+import { ref } from "vue";
+
+//Stores
 let userStore = useUserStore();
 const { images } = storeToRefs(userStore);
 const { currentUserOnly, profile } = storeToRefs(userStore);
+
+//Composables
 const { toggleModal, defineField, setCropper } = imageChangeComposable();
 
+// Variable
 const showEditeImage = ref(false);
 
-onBeforeRouteUpdate(verifyProfile);
-onMounted(() => {
-  defineField("herou");
+// Actions
+const activeImageUploadHerou = () => {
   setCropper(images.value("herou"));
-});
+  defineField("herou");
+  toggleModal();
+};
+
+//lifecycle
+onBeforeRouteUpdate(verifyProfile);
 </script>
