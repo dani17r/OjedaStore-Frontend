@@ -1,10 +1,10 @@
 import { errorNotify, sendEmailNotify } from "@helps/customNotify";
 import {
-  StateI,
-  UserT,
   CreateUserI,
-  ImageT,
   nameImage,
+  StateI,
+  ImageT,
+  UserT,
 } from "@interfaces/user";
 import * as httpUser from "@http/user";
 import * as httpAuth from "@http/auth";

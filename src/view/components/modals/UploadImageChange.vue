@@ -25,9 +25,13 @@
       </q-card-section>
 
       <q-card-actions class="flex justify-between">
-        <button class="button">
-          <input type="file" @change="loadImage" accept="image/*" />
-        </button>
+        <q-btn
+          label="Search Image"
+          @click="open()"
+          color="primary"
+          padding="5px 20px"
+          rounded
+        />
         <q-btn label="guardar" @click="saveImage()" flat />
       </q-card-actions>
     </q-card>
@@ -37,14 +41,17 @@
 <script setup lang="ts">
 import { Cropper, CropperResult, CircleStencil } from "vue-advanced-cropper";
 import imageChangeComposable from "@composables/uploadImageChange";
+import { useFileDialog } from "@vueuse/core";
 import { useUserStore } from "@stores/user";
+import { base64URL } from "@tools/utils";
+import { ref, watchEffect } from "vue";
 import * as httpUser from "@http/user";
 import { storeToRefs } from "pinia";
-import { ref } from "vue";
 
 const userStore = useUserStore();
-const { images, user } = storeToRefs(userStore);
-const { modal, field, getCropper, setCropper, resetCropper } = imageChangeComposable();
+const { user } = storeToRefs(userStore);
+const { modal, field, getCropper, setCropper, toggleModal } = imageChangeComposable();
+const { files, open, reset } = useFileDialog();
 
 const elementImgCropper = ref<typeof Cropper>();
 const tempImageFile = ref<Blob>();
@@ -63,49 +70,40 @@ const bindMode = {
 
 const saveImage = () => {
   const { coordinates, image }: CropperResult = elementImgCropper.value?.getResult();
-  const images = { coordinates: { ...coordinates, top: coordinates.top - 10 }, image };
+  const img = { coordinates: { ...coordinates, top: coordinates.top - 10 }, image };
 
-  userStore.changeImage(field.value, images);
-  setCropper(images);
+  userStore.changeImage(field.value, img);
+  setCropper(img);
 
   if (tempImageFile.value) {
     httpUser.uploadImage({
-      file: tempImageFile.value as Blob,
-      _id: user.value?._id as string,
+      _id: String(user.value?._id),
+      file: tempImageFile.value,
       field: field.value,
-      data: images,
+      data: img,
     });
   } else {
     httpUser.updateImage({
-      _id: user.value?._id as string,
+      _id: String(user.value?._id),
       field: field.value,
-      data: images,
+      data: img,
     });
   }
+
+  toggleModal();
 };
 
-const loadImage = (event: Event) => {
-  const { files } = <HTMLInputElement>event.target;
-  if (files && files[0]) {
-    if (getCropper.value.image?.src) URL.revokeObjectURL(getCropper.value.image.src);
-
-    const blob = URL.createObjectURL(files[0]);
-
-    const reader = new FileReader();
-    reader.readAsArrayBuffer(files[0]);
-    reader.onload = () => {
-      setCropper({ image: { src: blob } });
-      tempImageFile.value = files[0];
-    };
+watchEffect(async () => {
+  if (files.value) {
+    const imageString = await base64URL(files.value[0]);
+    setCropper({ image: { src: String(imageString) } });
+    tempImageFile.value = files.value[0];
   }
-};
+});
 
 const resetComponent = () => {
-  const imgCropper = getCropper.value.image?.src;
-  const imgUser = images.value(field.value).image?.src;
-  if (imgCropper != imgUser) resetCropper();
-  else resetCropper(images.value(field.value));
   loading.value = true;
+  reset();
 };
 </script>
 

@@ -15,12 +15,7 @@ export default () => {
   const defineField = (name: nameImage) => (field.value = name);
   const toggleModal = () => (modal.value = !modal.value);
 
-  const resetCropper = (value?: Partial<ImageT>) => {
-    getCropper.value = value ?? defaultCropper;
-  };
-
   return {
-    resetCropper,
     toggleModal,
     defineField,
     setCropper,

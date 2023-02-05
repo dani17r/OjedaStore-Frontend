@@ -1,5 +1,6 @@
 import { ForgotPasswordT, ResetPasswordT, LoginI } from "@interfaces/auth";
 import { removeSession } from "@tools/utils";
+import { useMemoize } from "@vueuse/core";
 import { api } from "@boot/axios";
 
 export const login = async (form: LoginI, model: string) => {
@@ -14,14 +15,14 @@ export const logout = async (email: string, model: string) => {
   return resp.data;
 };
 
-export const status = async (model: string) => {
+export const status = useMemoize(async (model: string) => {
   api.defaults.headers["model"] = model;
   const resp = await api.get(`/auth/status`).catch((data) => {
     if (Number(data.response.status) == 401) removeSession(model);
     return { data: false };
   });
   return resp.data;
-};
+});
 
 export const verifyEmail = async (email: string, model: string) => {
   api.defaults.headers["model"] = model;

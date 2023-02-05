@@ -10,6 +10,8 @@ export default () => {
   };
 
   const togglePreview = (img: string) => {
+    console.log(img);
+
     preview.value = !preview.value;
     chengeImage(img);
   };

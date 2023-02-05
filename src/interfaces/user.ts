@@ -13,25 +13,27 @@ export interface ImagesI {
 }
 
 export interface RecordsI {
-  cedula?: number;
-  passport?: number;
-  id?: number;
+  cedula: number;
+  passport: number;
+  id: number;
 }
 
 export interface UserI {
-  verifiedAt?: string | null;
-  expires_at?: string;
-  createdAt?: string;
-  birthDate?: string;
-  updatedAt?: string;
-  recovery?: boolean;
-  records?: RecordsI;
-  phones?: string[];
-  locations?: any[];
+  verifiedAt: string | null;
+  expires_at: string;
+  createdAt: string;
+  birthDate: string;
+  updatedAt: string;
+  recovery: boolean;
+  records: RecordsI;
+  phones: string[];
+  locations: any[];
   fullname: string;
   username: string;
   images: ImagesI;
+  gender: string;
   email: string;
+  role: string;
   _id?: string;
 }
 

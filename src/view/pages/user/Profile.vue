@@ -3,78 +3,33 @@
     <q-page>
       <div class="relative w-full">
         <ImgHerou />
-        <div class="row items-center px-20 -mt-10">
-          <div
-            @mouseover="currentUserOnly ? (showEditeImage = true) : null"
-            @mouseleave="currentUserOnly ? (showEditeImage = false) : null"
-            style="bottom: -20px; left: 30px"
-            class="absolute z-20"
-          >
-            <AvatarAccount state="profile" size="130px" />
-
-            <q-btn
-              class="text-white absolute bottom-1 right-2"
-              @click="activeImageUploadAvatar()"
-              style="background-color: #5e33af"
-              v-show="showEditeImage"
-              v-if="currentUserOnly"
-              icon="crop_original"
-              fab-mini
-              round
-            />
-          </div>
-          <div
-            class="rounded z-10 pl-24 py-1 flex flex-col"
-            style="height: 90px; width: 320px; background-color: #5e33af"
-          >
-            <span class="text-2xl text-white">{{
-              startCase(String(profile?.fullname))
-            }}</span>
-            <span class="text-md text-white">{{ profile?.username }}</span>
-            <span class="text-md text-grey">{{
-              profile?.birthDate &&
-              format(new Date(String(profile?.birthDate)), "dd/MM/yyyy")
-            }}</span>
-          </div>
-        </div>
+        <IdentifyHerou />
       </div>
-      <div class="px-20 py-10 justify-evenly">
+      <div class="p-10 justify-evenly">
         <div v-if="currentUserOnly">
-          <q-splitter v-model="splitterModel" style="height: 250px">
+          <q-splitter v-model="splitterModel" style="min-height: 216px" class="splitter-profile">
             <template v-slot:before>
-              <q-tabs v-model="tab" vertical class="text-primary">
-                <q-tab name="mails" icon="person" label="privade" />
-                <q-tab name="alarms" icon="alarm" label="Alarms" />
-                <q-tab name="movies" icon="movie" label="Movies" />
+              <q-tabs v-model="tab" vertical class="text-primary" noCaps>
+                <q-tab name="1" icon="person" label="Datos" />
+                <q-tab name="2" icon="room" label="Ubicaciones" />
+                <q-tab name="3" icon="lock" label="Credenciales" />
               </q-tabs>
             </template>
 
             <template v-slot:after>
-              <q-tab-panels
-                v-model="tab"
-                animated
-                swipeable
-                vertical
-                transition-prev="jump-up"
-                transition-next="jump-up"
-              >
-                <q-tab-panel name="mails">
-                  <div class="text-h4 q-mb-md">Mails</div>
-                  <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                    praesentium cumque magnam odio iure quidem, quod illum numquam
-                    possimus obcaecati commodi minima assumenda consectetur culpa fuga
-                    nulla ullam. In, libero.
-                  </p>
-                  <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                    praesentium cumque magnam odio iure quidem, quod illum numquam
-                    possimus obcaecati commodi minima assumenda consectetur culpa fuga
-                    nulla ullam. In, libero.
-                  </p>
+              <q-tab-panels v-model="tab" animated swipeable vertical>
+                <q-tab-panel name="1" class="p-10">
+                  <div class="text-h4 q-mb-md">Identificacion</div>
+                  <div v-if="profile" class="grid gap-4">
+                    <QInputEdit v-model="profile.username" label="Nombre de usuario" />
+                    <QInputEdit v-model="profile.fullname" label="Nombre completo" class="capitalize" />
+                    <QInputDate v-model="profile.birthDate" label="Fecha de nacimiento" />
+                    <QInputSelect :options="['femenino', 'masculino']" label="Genero" v-model="profile.gender" />
+                    <AddPhones />
+                  </div>
                 </q-tab-panel>
 
-                <q-tab-panel name="alarms">
+                <q-tab-panel name="2">
                   <div class="text-h4 q-mb-md">Alarms</div>
                   <p>
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
@@ -90,7 +45,7 @@
                   </p>
                 </q-tab-panel>
 
-                <q-tab-panel name="movies">
+                <q-tab-panel name="3">
                   <div class="text-h4 q-mb-md">Movies</div>
                   <p>
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
@@ -126,35 +81,34 @@
 
 <script setup lang="ts">
 // Internal proyect
-import imageChangeComposable from "@composables/uploadImageChange";
 import { verifyProfile } from "@middlewares/one";
 import { useUserStore } from "@stores/user";
 
 // Componentes
-import AvatarAccount from "@components/AvatarAccount.vue";
+import IdentifyHerou from "@components/profile/IdentifyHerou.vue";
+import QInputSelect from "@components/inputs/QInputSelect.vue";
+import QInputDate from "@components/inputs/QInputDate.vue";
+import QInputEdit from "@components/inputs/QInputEdit.vue";
+import AddPhones from "@components/profile/AddPhones.vue";
 import ErrorProfile from "@components/ErrorProfile.vue";
-import ImgHerou from "@components/ImgHerou.vue";
+import ImgHerou from "@components/profile/ImgHerou.vue";
 
 //Libraries
 import { onBeforeRouteUpdate } from "vue-router";
 import { storeToRefs } from "pinia";
-import { startCase } from "lodash";
-import { format } from "date-fns";
 import { ref } from "vue";
 
 let userStore = useUserStore();
-const { currentUserOnly, profile, images } = storeToRefs(userStore);
-const { toggleModal, defineField, setCropper } = imageChangeComposable();
+const { currentUserOnly, profile } = storeToRefs(userStore);
 
-const showEditeImage = ref(false);
 const splitterModel = ref(20);
-const tab = ref("mails");
-
-const activeImageUploadAvatar = () => {
-  setCropper(images.value("avatar"));
-  defineField("avatar");
-  toggleModal();
-};
+const tab = ref("1");
 
 onBeforeRouteUpdate(verifyProfile);
 </script>
+
+<style>
+.splitter-profile>.q-splitter__panel.q-splitter__before {
+  width: 13% !important;
+}
+</style>

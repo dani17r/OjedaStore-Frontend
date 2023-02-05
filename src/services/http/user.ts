@@ -1,17 +1,18 @@
 import { CreateUserI, ImageT, nameImage, UpdateUserI } from "@interfaces/user";
 import { Coordinates, CropperResult } from "vue-advanced-cropper";
 import { QueryI } from "@interfaces/general";
+import { useMemoize } from "@vueuse/core";
 import { api } from "@boot/axios";
 
 api.defaults.headers["model"] = "users";
 
-export const one = async (_id: string, query?: QueryI) => {
+export const one = useMemoize(async (_id: string, query?: QueryI) => {
   const isQuery = query ? `?${query}` : "";
   const resp = await api
     .get(`/users/${_id}${isQuery}`)
     .catch(() => ({ data: null }));
   return resp.data;
-};
+});
 
 export const create = async (form: CreateUserI) => {
   const resp = await api.post("/users", form);
@@ -48,6 +49,7 @@ export const uploadImage = async (formData: UploadImageI) => {
   const resp = await api
     .post(`/users/upload/${formData.field}`, form)
     .catch(() => ({ data: null }));
+
   return resp.data;
 };
 
