@@ -1,5 +1,6 @@
 import { errorNotify, sendEmailNotify } from "@helps/customNotify";
 import {
+  profileFields,
   CreateUserI,
   nameImage,
   StateI,
@@ -82,6 +83,15 @@ export const useUserStore = defineStore("user", {
     },
     changeImage(field: "herou" | "avatar", value: ImageT) {
       if (this.user?.images) this.user.images[field] = value;
+    },
+    changeField(field: profileFields, newValue: never) {
+      if (this.user && this.profile && field) {
+        if (this.user[field] != newValue) {
+          this.user[field] = newValue;
+          this.profile[field] = newValue;
+          httpUser.update(this.user?._id, { [field]: this.user[field] });
+        }
+      }
     },
   },
 });

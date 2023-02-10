@@ -1,32 +1,22 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header>
-      <q-toolbar class="bg-two">
+      <q-toolbar class="tw-bg-two">
         <LogoHeader />
 
-        <q-btn
-          :label="$t(`layouts.public.btn.${uri.name}`)"
-          class="capitalize"
-          :icon="uri.icon"
-          :to="uri"
-          stretch
-          flat
-        />
+        <q-btn :label="$t(`layouts.public.btn.${uri.name}`)" class="tw-capitalize" :icon="uri.icon" :to="uri" stretch
+          flat />
         <ButtomLang />
       </q-toolbar>
     </q-header>
 
-    <q-scroll-area
-      :thumb-style="thumbStyle"
-      style="height: 100vh; width: 100%"
-      :tabindex="100"
-    >
+    <q-scroll-area :thumb-style="thumbStyle" style="height: 100vh; width: 100%" :tabindex="100">
       <q-page-container>
         <router-view />
       </q-page-container>
     </q-scroll-area>
 
-    <ToggleDark class="fixed bottom-2 right-4" />
+    <ToggleDark class="tw-fixed tw-bottom-2 tw-right-4" />
   </q-layout>
 </template>
 

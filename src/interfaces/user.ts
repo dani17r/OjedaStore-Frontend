@@ -34,18 +34,12 @@ export interface UserI {
   gender: string;
   email: string;
   role: string;
-  _id?: string;
+  _id: string;
 }
 
 export type CreateUserI = Omit<
   UserI & LoginI,
-  | "expires_at"
-  | "verifiedAt"
-  | "createdAt"
-  | "updatedAt"
-  | "recovery"
-  | "_id"
-  | "model"
+  "expires_at" | "verifiedAt" | "createdAt" | "updatedAt" | "recovery" | "_id"
 >;
 
 export type UpdateUserI = Omit<
@@ -56,16 +50,37 @@ export type UpdateUserI = Omit<
   | "updatedAt"
   | "recovery"
   | "password"
-  | "model"
   | "_id"
 >;
 
 export type UserT = UserI | null;
 
 export type nameImage = "herou" | "avatar";
+export type profileFields = keyof Omit<UserI, "_id">;
 
 export interface StateI {
   lifecycles: LifecyclesI;
   profile: UserT;
   user: UserT;
+}
+
+// type subUpdateUserI = {
+//   [Property in keyof UpdateUserI]?: UpdateUserI[Property];
+// };
+
+// type ImagesT = {
+//   [key in nameImage]?: {
+//     coordinates: Partial<Coordinates>;
+//     image: Partial<CropperResult["image"]>;
+//   };
+// };
+
+export interface UploadImageI {
+  data: {
+    coordinates: Partial<Coordinates>;
+    image: Partial<CropperResult["image"]>;
+  };
+  field: string;
+  _id: string;
+  file: Blob;
 }

@@ -1,31 +1,13 @@
 <template>
-  <div
-    class="relative"
-    @mouseover="currentUserOnly ? (showEditeImage = true) : null"
-    @mouseleave="currentUserOnly ? (showEditeImage = false) : null"
-  >
-    <q-img
-      style="width: 100%; height: 200px"
-      :src="'/herou_placeholder.png'"
-      v-if="!profile?.images.herou.image?.src"
-    />
-    <Preview
-      style="width: 100%; height: 200px"
-      :coordinates="profile?.images.herou.coordinates"
-      :image="profile?.images.herou.image"
-      v-else
-    />
-    <q-btn
-      class="text-white absolute bottom-5 right-5"
-      @click="activeImageUploadHerou()"
-      style="background-color: #5e33af"
-      v-show="showEditeImage"
-      v-if="currentUserOnly"
-      icon="crop_original"
-      fab-mini
-      round
-      flat
-    />
+  <div class="tw-relative" @mouseover="currentUserOnly ? (showEditeImage = true) : null"
+    @mouseleave="currentUserOnly ? (showEditeImage = false) : null">
+    <q-img style="width: 100%; height: 200px" :src="'/herou_placeholder.png'"
+      v-if="!profile?.images.herou.image?.src" />
+    <Preview style="width: 100%; height: 200px" :coordinates="profile?.images.herou.coordinates"
+      :image="profile?.images.herou.image" v-else />
+    <q-btn class="tw-text-white tw-absolute tw-bottom-5 tw-right-5" @click="activeImageUploadHerou()"
+      style="background-color: #5e33af" v-show="showEditeImage" v-if="currentUserOnly" icon="crop_original" fab-mini
+      round flat />
   </div>
 </template>
 

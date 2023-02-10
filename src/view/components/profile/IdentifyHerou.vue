@@ -1,31 +1,18 @@
 <template>
-  <div class="row items-center px-20 -mt-10">
-    <div
-      @mouseover="currentUserOnly ? (showEditeImage = true) : null"
-      @mouseleave="currentUserOnly ? (showEditeImage = false) : null"
-      style="bottom: -20px; left: 30px"
-      class="absolute z-20"
-    >
+  <div class="tw-px-20 tw-mt-2">
+    <div @mouseover="currentUserOnly ? (showEditeImage = true) : null"
+      @mouseleave="currentUserOnly ? (showEditeImage = false) : null" style="bottom: -18px; left: 54px"
+      class="tw-absolute">
       <AvatarAccount state="profile" size="130px" :only="true" />
 
-      <q-btn
-        class="text-white absolute bottom-1 right-2"
-        @click="activeImageUploadAvatar()"
-        style="background-color: #5e33af"
-        v-show="showEditeImage"
-        v-if="currentUserOnly"
-        icon="crop_original"
-        fab-mini
-        round
-      />
+      <q-btn class="tw-text-white tw-absolute tw-bottom-1 tw-right-2" @click="activeImageUploadAvatar()"
+        style="background-color: #5e33af" v-show="showEditeImage" v-if="currentUserOnly" icon="crop_original" fab-mini
+        round />
     </div>
-    <div
-      class="rounded z-10 pl-24 py-1 flex flex-col"
-      style="height: 90px; width: 320px; background-color: #5e33af"
-    >
-      <span class="text-2xl text-white">{{ startCase(String(profile?.fullname)) }}</span>
-      <span class="text-md text-white">{{ profile?.username }}</span>
-      <span class="text-md text-grey">{{
+    <div class="tw-pl-24 tw-flex tw-flex-col tw-justify-center" style="height: 90px; width: 370px; padding-left: 130px">
+      <span class="name">{{ startCase(String(profile?.fullname)) }}</span>
+      <span class="">{{ profile?.username }}</span>
+      <span class="tw-text-sm tw-text-two-2 tw-mt-1">{{
         profile?.birthDate && format(new Date(String(profile?.birthDate)), "dd/MM/yyyy")
       }}</span>
     </div>
@@ -58,3 +45,29 @@ const activeImageUploadAvatar = () => {
   toggleModal();
 };
 </script>
+
+<style lang="scss" scoped>
+.name {
+  @apply tw-text-3xl;
+
+  .body--light {
+    @apply tw-text-white;
+  }
+
+  .body--dark {
+    @apply tw-text-black;
+  }
+}
+
+.username {
+  @apply tw-text-3xl;
+
+  .body--light {
+    @apply tw-text-black;
+  }
+
+  .body--dark {
+    @apply tw-text-two-1;
+  }
+}
+</style>

@@ -1,15 +1,15 @@
 <template>
   <ErrorProfile :isError="profile == null">
     <q-page>
-      <div class="relative w-full">
+      <div class="tw-relative tw-w-full">
         <ImgHerou />
         <IdentifyHerou />
       </div>
-      <div class="p-10 justify-evenly">
+      <div class="tw-p-10 tw-justify-evenly">
         <div v-if="currentUserOnly">
           <q-splitter v-model="splitterModel" style="min-height: 216px" class="splitter-profile">
             <template v-slot:before>
-              <q-tabs v-model="tab" vertical class="text-primary" noCaps>
+              <q-tabs v-model="tab" vertical class="tw-text-primary" noCaps>
                 <q-tab name="1" icon="person" label="Datos" />
                 <q-tab name="2" icon="room" label="Ubicaciones" />
                 <q-tab name="3" icon="lock" label="Credenciales" />
@@ -18,26 +18,29 @@
 
             <template v-slot:after>
               <q-tab-panels v-model="tab" animated swipeable vertical>
-                <q-tab-panel name="1" class="p-10">
-                  <div class="text-h4 q-mb-md">Identificacion</div>
-                  <div v-if="profile" class="grid gap-4">
-                    <QInputEdit v-model="profile.username" label="Nombre de usuario" />
-                    <QInputEdit v-model="profile.fullname" label="Nombre completo" class="capitalize" />
-                    <QInputDate v-model="profile.birthDate" label="Fecha de nacimiento" />
+                <q-tab-panel name="1" class="tw-p-10">
+                  <div class="tw-text-h4 q-mb-md">Identificacion</div>
+                  <div v-if="profile && profileCold" class="tw-grid tw-gap-4">
+                    <QInputEdit :value="profileCold.fullname" label="Nombre completo" class="tw-capitalize"
+                      @save="(val) => changeField('fullname', val)" />
+                    <QInputEdit :value="profileCold.username" @save="(val) => changeField('username', val)"
+                      label="Nombre de usuario" />
+                    <QInputDate :value="profileCold.birthDate" @save="(val) => changeField('birthDate', val)"
+                      label="Fecha de nacimiento" />
                     <QInputSelect :options="['femenino', 'masculino']" label="Genero" v-model="profile.gender" />
                     <AddPhones />
                   </div>
                 </q-tab-panel>
 
                 <q-tab-panel name="2">
-                  <div class="text-h4 q-mb-md">Alarms</div>
+                  <div class="tw-text-h4 q-mb-md">Alarms</div>
                   <p>
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
                     praesentium cumque magnam odio iure quidem, quod illum numquam
                     possimus obcaecati commodi minima assumenda consectetur culpa fuga
                     nulla ullam. In, libero.
                   </p>
-                  <p>
+                  <p class="bg-one">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
                     praesentium cumque magnam odio iure quidem, quod illum numquam
                     possimus obcaecati commodi minima assumenda consectetur culpa fuga
@@ -46,7 +49,7 @@
                 </q-tab-panel>
 
                 <q-tab-panel name="3">
-                  <div class="text-h4 q-mb-md">Movies</div>
+                  <div class="tw-text-h4 q-mb-md">Movies</div>
                   <p>
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
                     praesentium cumque magnam odio iure quidem, quod illum numquam
@@ -95,11 +98,12 @@ import ImgHerou from "@components/profile/ImgHerou.vue";
 
 //Libraries
 import { onBeforeRouteUpdate } from "vue-router";
-import { storeToRefs } from "pinia";
-import { ref } from "vue";
+import { ref, toRaw } from "vue";
+import { profileFields } from "@interfaces/user";
 
-let userStore = useUserStore();
-const { currentUserOnly, profile } = storeToRefs(userStore);
+const { currentUserOnly, profile, changeField } = useUserStore();
+
+const profileCold = toRaw(profile);
 
 const splitterModel = ref(20);
 const tab = ref("1");

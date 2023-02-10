@@ -1,21 +1,9 @@
 <template>
-  <q-avatar
-    @click="props.previewImage && previewImg.togglePreview(avatar)"
-    class="cursor-pointer"
-    :color="props.color"
-    :size="props.size"
-  >
-    <q-img
-      v-if="!stateProfile?.images.avatar.image?.src"
-      :src="'/avatar_placeholder.png'"
-      :width="props.size"
-    />
-    <Preview
-      :style="`width: ${props.size}; height: ${props.size}; border: 1px solid #fff; border-radius: 50%;`"
-      :coordinates="stateProfile?.images.avatar?.coordinates"
-      :image="stateProfile?.images.avatar?.image"
-      v-else
-    />
+  <q-avatar @click="props.previewImage && previewImg.togglePreview(avatar)" class="tw-cursor-pointer"
+    :color="props.color" :size="props.size">
+    <q-img v-if="!stateProfile?.images.avatar.image?.src" :src="'/avatar_placeholder.png'" :width="props.size" />
+    <Preview :style="`width: ${props.size}; height: ${props.size}; border: 1px solid #fff; border-radius: 50%;`"
+      :coordinates="stateProfile?.images.avatar?.coordinates" :image="stateProfile?.images.avatar?.image" v-else />
   </q-avatar>
 </template>
 

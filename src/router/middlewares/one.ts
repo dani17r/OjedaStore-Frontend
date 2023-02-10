@@ -1,11 +1,10 @@
 import { RouteLocationNormalized } from "vue-router";
-import { useUserStore } from "@stores/user";
+import { UserT } from "@interfaces/user";
 import * as httpUser from "@http/user";
-import { storeToRefs } from "pinia";
-import { StateI, UserT, CreateUserI } from "@interfaces/user";
 
 export const verifyToken = (to: RouteLocationNormalized) => {
-  if (to.params.token.length == 228) return true;
+  let tokenLenght = to.params.token.length;
+  if (tokenLenght > 116 || tokenLenght <= 228) return true;
   else return { name: "error-404" };
 };
 

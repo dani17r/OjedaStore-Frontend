@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-center items-center" style="height: 100vh">
-    <div v-if="message" class="text-lg capitalize">
+    <div v-if="message" class="text-lg tw-capitalize">
       {{ message }}
     </div>
     <q-spinner-oval color="primary" size="3.5em" v-else />

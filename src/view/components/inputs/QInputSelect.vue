@@ -1,8 +1,8 @@
 <template>
-    <div tabindex="1" class="absolute" ref="divElement"></div>
-    <q-select v-bind="$attrs" :class="['capitalize edit-select', !modeActive ? 'q-field--disabled' : 'not-select']"
-        @popupHide="desactive" popupContentClass="capitalize" @popupShow="modeActive = true" style="padding-left: 15px;"
-        v-model="value">
+    <div tabindex="1" class="tw-absolute" ref="divElement"></div>
+    <q-select v-bind="$attrs" :class="['tw-capitalize edit-select', !modeActive ? 'q-field--disabled' : 'not-select']"
+        @popupHide="desactive" popupContentClass="tw-capitalize" @popupShow="modeActive = true"
+        style="padding-left: 15px;" v-model="value">
     </q-select>
 </template>
 

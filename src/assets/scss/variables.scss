@@ -1,11 +1,96 @@
-:root {
-  --q-primary: #5e33af;
-  --q-secondary: #700f2e;
-  --q-accent: #8927b0;
-  --q-positive: #21ba45;
-  --q-negative: #bb071c;
-  --q-info: #3192ec;
-  --q-warning: #f2c037;
-  --q-dark: #282828;
-  --q-dark-page: #242424;
+$one-1: #6b61b7;
+$one-2: #5b53ac;
+$one-3: #524a9c;
+$one-4: #48408c;
+$one-5: #3e397a;
+$one-6: #343069;
+$one-7: #2c2857;
+
+$two-1: #e5e5e5;
+$two-2: #cccccc;
+$two-3: #999999;
+$two-4: #737373;
+$two-5: #4d4d4d;
+$two-6: #333333;
+$two-7: #262626;
+
+$white: #f8f8f8;
+$black: $two-7;
+$one: $one-4;
+$two: $one-4;
+
+$colors: (
+  "one": $one,
+  "one-1": $one-1,
+  "one-2": $one-2,
+  "one-3": $one-3,
+  "one-4": $one-4,
+  "one-5": $one-5,
+  "one-6": $one-6,
+  "one-7": $one-7,
+);
+
+@each $name,
+$value in $colors {
+
+  .text-#{$name} {
+    color: $value;
+  }
+
+  .bg-#{$name} {
+    background: $value;
+  }
+
+}
+
+.body--light {
+
+  .q-drawer,
+  .q-menu,
+  .q-card {
+    background-color: $white;
+  }
+
+  .q-page,
+  .q-tab-panels {
+    background-color: $two-1;
+  }
+
+  .q-field__marginal {
+    color: $two-5;
+  }
+
+  .q-field__native,
+  .q-field__input {
+    color: $one-7 !important;
+  }
+}
+
+body.body--dark {
+  color: $white;
+  background: $two-6;
+}
+
+.body--dark {
+
+  .q-page,
+  .q-tab-panels {
+    background-color: $two-6;
+  }
+
+  .q-drawer,
+  .q-menu,
+  .q-date,
+  .q-card {
+    background-color: $two-7;
+  }
+
+  .q-card--dark {
+    box-shadow: none !important;
+  }
+
+  .q-item.q-router-link--active,
+  .q-item--active {
+    color: $one-1;
+  }
 }

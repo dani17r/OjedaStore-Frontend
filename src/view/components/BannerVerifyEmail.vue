@@ -1,18 +1,11 @@
 <template>
-  <q-banner
-    class="text-white bg-red fixed bottom-0 w-full p-0 m-0 px-4"
-    style="z-index: 1000; min-height: 5px"
-    v-if="emailIsVerify && !close"
-    inline-actions
-  >
+  <q-banner class="tw-text-white tw-bg-red tw-fixed tw-bottom-0 tw-w-full tw-p-0 tw-m-0 tw-px-4"
+    style="z-index: 1000; min-height: 5px" v-if="emailIsVerify && !close" inline-actions>
     <q-icon color="white" name="warning" size="20px" class="mr-4" />
-    <span class="mr-4"> {{ $t("layouts.main.banner.text") }}. </span>
-    <a
-      class="underline cursor-pointer"
-      @click="sendAgainVerifyEmail()"
-      v-if="sendEmail"
-      >{{ $t("layouts.main.banner.link") }}</a
-    >
+    <span class="tw-mr-4"> {{ $t("layouts.main.banner.text") }}. </span>
+    <a class="tw-underline tw-cursor-pointer" @click="sendAgainVerifyEmail()" v-if="sendEmail">{{
+      $t("layouts.main.banner.link")
+    }}</a>
     <template v-slot:action>
       <q-btn flat round color="white" icon="close" @click="closeBanner()" />
     </template>

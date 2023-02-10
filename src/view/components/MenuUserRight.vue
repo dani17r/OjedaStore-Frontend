@@ -4,7 +4,7 @@
     <q-menu anchor="bottom right" self="top end" :offset="[-2, 5]">
       <q-item clickable @click="toggleLang()">
         <q-item-section avatar> <q-icon name="language" /></q-item-section>
-        <q-item-section class="capitalize">{{ langDefault }}</q-item-section>
+        <q-item-section class="tw-capitalize">{{ langDefault }}</q-item-section>
       </q-item>
       <q-item clickable @click="toggle()">
         <q-item-section avatar> <q-icon :name="mode.icon" /></q-item-section>

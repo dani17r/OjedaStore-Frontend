@@ -1,12 +1,12 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header>
-      <q-toolbar class="bg-two">
+      <q-toolbar class="tw-bg-one">
         <q-btn flat round icon="menu" aria-label="Menu" @click="toggleLeftDrawer()" />
 
         <LogoHeader />
 
-        <q-btn round flat icon="notifications" class="mr-4">
+        <q-btn round flat icon="notifications" class="tw-mr-4">
           <q-badge floating color="red" label="4" />
         </q-btn>
 

@@ -1,15 +1,15 @@
 <template>
-  <q-card flat class="mt-3 mb-2">
+  <q-card flat class="tw-mt-3 tw-mb-2">
     <q-item>
       <q-item-section avatar>
         <AvatarAccount size="70px" />
       </q-item-section>
-      <q-item-section class="truncate pr-2">
-        <q-item-label class="text-lg font-semibold">
+      <q-item-section class="tw-truncate tw-pr-2">
+        <q-item-label class="tw-text-lg tw-font-semibold">
           {{ startCase(String(user?.fullname)) }}
         </q-item-label>
-        <q-item-label class="font-semibold" caption>{{ user?.username }}</q-item-label>
-        <hr class="my-2" />
+        <q-item-label class="tw-font-semibold" caption>{{ user?.username }}</q-item-label>
+        <hr class="tw-my-2" />
         <q-item-label caption>
           {{ user?.email }}
         </q-item-label>

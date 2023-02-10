@@ -4,6 +4,7 @@ import { defineStore, storeToRefs } from "pinia";
 import { RouterT } from "@interfaces/general";
 import { removeSession } from "@tools/utils";
 import * as Auth from "@http/auth";
+import * as User from "@http/user";
 import { Ref } from "vue";
 import {
   autoDestroyNotify,
@@ -31,6 +32,10 @@ export const useAuthStore = defineStore("auth", {
           this.router.push({ name: "home" });
           userStore.remove();
           removeSession(model);
+
+          //Cache
+          Auth.status.clear();
+          User.one.clear();
         })
         .catch((err) => errorNotify(err.response.data.message));
     },

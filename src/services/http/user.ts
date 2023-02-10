@@ -1,5 +1,4 @@
-import { CreateUserI, ImageT, nameImage, UpdateUserI } from "@interfaces/user";
-import { Coordinates, CropperResult } from "vue-advanced-cropper";
+import { CreateUserI, UpdateUserI, UploadImageI } from "@interfaces/user";
 import { QueryI } from "@interfaces/general";
 import { useMemoize } from "@vueuse/core";
 import { api } from "@boot/axios";
@@ -19,27 +18,10 @@ export const create = async (form: CreateUserI) => {
   return resp.data;
 };
 
-export const update = async (_id: string, form: UpdateUserI) => {
+export const update = async (_id: string, form: Partial<UpdateUserI>) => {
   const resp = await api.post(`/users/${_id}`, form);
   return resp.data;
 };
-
-type ImagesT = {
-  [key in nameImage]?: {
-    coordinates: Partial<Coordinates>;
-    image: Partial<CropperResult["image"]>;
-  };
-};
-
-interface UploadImageI {
-  data: {
-    coordinates: Partial<Coordinates>;
-    image: Partial<CropperResult["image"]>;
-  };
-  field: string;
-  _id: string;
-  file: Blob;
-}
 
 export const uploadImage = async (formData: UploadImageI) => {
   const form = new FormData();
