@@ -1,9 +1,21 @@
 <template>
-  <q-avatar @click="props.previewImage && previewImg.togglePreview(avatar)" class="tw-cursor-pointer"
-    :color="props.color" :size="props.size">
-    <q-img v-if="!stateProfile?.images.avatar.image?.src" :src="'/avatar_placeholder.png'" :width="props.size" />
-    <Preview :style="`width: ${props.size}; height: ${props.size}; border: 1px solid #fff; border-radius: 50%;`"
-      :coordinates="stateProfile?.images.avatar?.coordinates" :image="stateProfile?.images.avatar?.image" v-else />
+  <q-avatar
+    @click="props.previewImage && previewImg.togglePreview(avatar)"
+    class="tw-cursor-pointer"
+    :color="props.color"
+    :size="props.size"
+  >
+    <q-img
+      v-if="!stateProfile?.images.avatar.image?.src"
+      :src="'/avatar_placeholder.png'"
+      :width="props.size"
+    />
+    <Preview
+      :style="`width: ${props.size}; height: ${props.size}; border: 1px solid #fff; border-radius: 50%;`"
+      :coordinates="stateProfile?.images.avatar?.coordinates"
+      :image="stateProfile?.images.avatar?.image"
+      v-else
+    />
   </q-avatar>
 </template>
 
@@ -47,7 +59,8 @@ const stateProfile = computed(() => {
 });
 
 const avatar = computed(() => {
-  if (!stateProfile.value?.images.avatar.image?.src) return "/avatar_placeholder.png";
+  if (!stateProfile.value?.images.avatar.image?.src)
+    return "/avatar_placeholder.png";
   else return stateProfile.value?.images.avatar.image.src;
 });
 </script>

@@ -1,5 +1,11 @@
 <template>
-  <q-btn @click="toggleLang()" :label="langDefault" icon="language" stretch flat />
+  <q-btn
+    @click="toggleLang()"
+    :label="langDefault"
+    icon="language"
+    stretch
+    flat
+  />
 </template>
 
 <script setup lang="ts">

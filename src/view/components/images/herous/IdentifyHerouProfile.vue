@@ -1,19 +1,33 @@
 <template>
   <div class="tw-px-20 tw-mt-2">
-    <div @mouseover="currentUserOnly ? (showEditeImage = true) : null"
-      @mouseleave="currentUserOnly ? (showEditeImage = false) : null" style="bottom: -18px; left: 54px"
-      class="tw-absolute">
+    <div
+      @mouseover="currentUserOnly ? (showEditeImage = true) : null"
+      @mouseleave="currentUserOnly ? (showEditeImage = false) : null"
+      style="bottom: -18px; left: 54px"
+      class="tw-absolute"
+    >
       <AvatarAccount state="profile" size="130px" :only="true" />
 
-      <q-btn class="tw-text-white tw-absolute tw-bottom-1 tw-right-2" @click="activeImageUploadAvatar()"
-        style="background-color: #5e33af" v-show="showEditeImage" v-if="currentUserOnly" icon="crop_original" fab-mini
-        round />
+      <q-btn
+        class="tw-text-white tw-absolute tw-bottom-1 tw-right-2"
+        @click="activeImageUploadAvatar()"
+        style="background-color: #5e33af"
+        v-show="showEditeImage"
+        v-if="currentUserOnly"
+        icon="crop_original"
+        fab-mini
+        round
+      />
     </div>
-    <div class="tw-pl-24 tw-flex tw-flex-col tw-justify-center" style="height: 90px; padding-left: 130px">
+    <div
+      class="tw-pl-24 tw-flex tw-flex-col tw-justify-center"
+      style="height: 90px; padding-left: 130px"
+    >
       <span class="name">{{ startCase(String(profile?.fullname)) }}</span>
       <span class="">{{ profile?.username }}</span>
       <span class="tw-text-sm tw-text-two-2 tw-mt-1">{{
-        profile?.birthDate && format(new Date(String(profile?.birthDate)), "dd/MM/yyyy")
+        profile?.birthDate &&
+        format(new Date(String(profile?.birthDate)), "dd/MM/yyyy")
       }}</span>
     </div>
   </div>

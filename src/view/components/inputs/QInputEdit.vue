@@ -1,7 +1,15 @@
 <template>
-  <div @dblclick="edite()">
-    <q-input v-bind="$attrs" v-model="val" :class="{ 'no-edit': !valueEdit }" @blur="blur()" ref="inputElement"
-      :disable="!valueEdit" @keyup.esc="cancel()" @keyup.enter="save()">
+  <div @dblclick="edite()" class="dbclick">
+    <q-input
+      v-bind="$attrs"
+      v-model="val"
+      :class="{ 'no-edit': !valueEdit }"
+      @blur="blur()"
+      ref="inputElement"
+      :disable="!valueEdit"
+      @keyup.esc="cancel()"
+      @keyup.enter="save()"
+    >
       <template v-slot:before>
         <div class="tw-absolute tw-right-10 tw-z-50">
           <q-icon name="edit" @click="edite()" v-if="!valueEdit" />
@@ -26,10 +34,12 @@ export default defineComponent({
     },
   },
   emits: {
-    save(val: never) { return val },
+    save(val: never) {
+      return val;
+    },
   },
   setup(props, ctx) {
-    const val = ref(props.value)
+    const val = ref(props.value);
 
     const valueEdit = ref(false);
     const dispatchEvent = ref(true);
@@ -41,22 +51,22 @@ export default defineComponent({
     };
 
     const save = () => {
-      dispatchEvent.value = false
-      valueEdit.value = false
+      dispatchEvent.value = false;
+      valueEdit.value = false;
       ctx.emit("save", val.value as never);
-    }
+    };
     const cancel = () => {
-      dispatchEvent.value = false
+      dispatchEvent.value = false;
       val.value = props.value;
-      valueEdit.value = false
-      dispatchEvent.value = true
-    }
+      valueEdit.value = false;
+      dispatchEvent.value = true;
+    };
 
     const blur = () => {
       if (dispatchEvent.value) {
-        setTimeout(() => cancel(), 250)
+        setTimeout(() => cancel(), 250);
       }
-    }
+    };
 
     return {
       inputElement,
@@ -66,11 +76,10 @@ export default defineComponent({
       save,
       blur,
       val,
-    }
-  }
-})
+    };
+  },
+});
 </script>
-
 
 <style>
 .no-edit .q-field__control:before {

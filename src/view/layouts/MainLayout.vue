@@ -2,7 +2,13 @@
   <q-layout view="lHh Lpr lFf">
     <q-header>
       <q-toolbar class="tw-bg-one">
-        <q-btn flat round icon="menu" aria-label="Menu" @click="toggleLeftDrawer()" />
+        <q-btn
+          @click="toggleLeftDrawer()"
+          aria-label="Menu"
+          icon="menu"
+          round
+          flat
+        />
 
         <LogoHeader />
 

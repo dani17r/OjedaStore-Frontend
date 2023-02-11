@@ -7,7 +7,11 @@
       </div>
       <div class="tw-p-10 tw-justify-evenly">
         <div v-if="currentUserOnly">
-          <q-splitter v-model="splitterModel" style="min-height: 216px" class="splitter-profile">
+          <q-splitter
+            v-model="splitterModel"
+            style="min-height: 216px"
+            class="splitter-profile"
+          >
             <template v-slot:before>
               <q-tabs v-model="tab" vertical class="tw-text-primary" noCaps>
                 <q-tab name="1" icon="person" label="Datos" />
@@ -21,13 +25,28 @@
                 <q-tab-panel name="1" class="tw-p-10">
                   <div class="tw-text-h4 q-mb-md">Identificacion</div>
                   <div v-if="profile && profileCold" class="tw-grid tw-gap-4">
-                    <QInputEdit :value="profileCold.fullname" label="Nombre completo" class="tw-capitalize"
-                      @save="(val) => changeField('fullname', val)" />
-                    <QInputEdit :value="profileCold.username" @save="(val) => changeField('username', val)"
-                      label="Nombre de usuario" />
-                    <QInputDate :value="profileCold.birthDate" @save="(val) => changeField('birthDate', val)"
-                      label="Fecha de nacimiento" />
-                    <QInputSelect :options="['femenino', 'masculino']" label="Genero" v-model="profile.gender" />
+                    <QInputEdit
+                      :value="profileCold.fullname"
+                      label="Nombre completo"
+                      class="tw-capitalize"
+                      @save="(val) => changeField('fullname', val)"
+                    />
+                    <QInputEdit
+                      :value="profileCold.username"
+                      @save="(val) => changeField('username', val)"
+                      label="Nombre de usuario"
+                    />
+                    <QInputDate
+                      :value="profileCold.birthDate"
+                      @save="(val) => changeField('birthDate', val)"
+                      label="Fecha de nacimiento"
+                    />
+                    <QInputSelect
+                      :options="['femenino', 'masculino']"
+                      label="Genero"
+                      :value="profileCold.gender"
+                      @save="(val) => changeField('gender', val)"
+                    />
                     <AddPhones />
                   </div>
                 </q-tab-panel>
@@ -35,38 +54,38 @@
                 <q-tab-panel name="2">
                   <div class="tw-text-h4 q-mb-md">Alarms</div>
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                    praesentium cumque magnam odio iure quidem, quod illum numquam
-                    possimus obcaecati commodi minima assumenda consectetur culpa fuga
-                    nulla ullam. In, libero.
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Quis praesentium cumque magnam odio iure quidem, quod illum
+                    numquam possimus obcaecati commodi minima assumenda
+                    consectetur culpa fuga nulla ullam. In, libero.
                   </p>
                   <p class="bg-one">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                    praesentium cumque magnam odio iure quidem, quod illum numquam
-                    possimus obcaecati commodi minima assumenda consectetur culpa fuga
-                    nulla ullam. In, libero.
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Quis praesentium cumque magnam odio iure quidem, quod illum
+                    numquam possimus obcaecati commodi minima assumenda
+                    consectetur culpa fuga nulla ullam. In, libero.
                   </p>
                 </q-tab-panel>
 
                 <q-tab-panel name="3">
                   <div class="tw-text-h4 q-mb-md">Movies</div>
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                    praesentium cumque magnam odio iure quidem, quod illum numquam
-                    possimus obcaecati commodi minima assumenda consectetur culpa fuga
-                    nulla ullam. In, libero.
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Quis praesentium cumque magnam odio iure quidem, quod illum
+                    numquam possimus obcaecati commodi minima assumenda
+                    consectetur culpa fuga nulla ullam. In, libero.
                   </p>
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                    praesentium cumque magnam odio iure quidem, quod illum numquam
-                    possimus obcaecati commodi minima assumenda consectetur culpa fuga
-                    nulla ullam. In, libero.
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Quis praesentium cumque magnam odio iure quidem, quod illum
+                    numquam possimus obcaecati commodi minima assumenda
+                    consectetur culpa fuga nulla ullam. In, libero.
                   </p>
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-                    praesentium cumque magnam odio iure quidem, quod illum numquam
-                    possimus obcaecati commodi minima assumenda consectetur culpa fuga
-                    nulla ullam. In, libero.
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Quis praesentium cumque magnam odio iure quidem, quod illum
+                    numquam possimus obcaecati commodi minima assumenda
+                    consectetur culpa fuga nulla ullam. In, libero.
                   </p>
                 </q-tab-panel>
               </q-tab-panels>
@@ -112,7 +131,7 @@ onBeforeRouteUpdate(verifyProfile);
 </script>
 
 <style>
-.splitter-profile>.q-splitter__panel.q-splitter__before {
+.splitter-profile > .q-splitter__panel.q-splitter__before {
   width: 13% !important;
 }
 </style>

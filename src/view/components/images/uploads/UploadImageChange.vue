@@ -7,9 +7,15 @@
             <q-spinner-ios color="primary" size="30px" v-show="loading" />
           </div>
           <div v-if="getCropper.image?.src">
-            <Cropper :default-position="getCropper.coordinates" :default-size="getCropper.coordinates"
-              :src="getCropper.image?.src" v-bind="bindMode[field]" @ready="loading = false" ref="elementImgCropper"
-              class="cropper" />
+            <Cropper
+              :default-position="getCropper.coordinates"
+              :default-size="getCropper.coordinates"
+              :src="getCropper.image?.src"
+              v-bind="bindMode[field]"
+              @ready="loading = false"
+              ref="elementImgCropper"
+              class="cropper"
+            />
           </div>
 
           <div v-else>
@@ -19,7 +25,13 @@
       </q-card-section>
 
       <q-card-actions class="flex justify-between">
-        <q-btn label="Search Image" @click="open()" color="primary" padding="5px 20px" rounded />
+        <q-btn
+          label="Search Image"
+          @click="open()"
+          color="primary"
+          padding="5px 20px"
+          rounded
+        />
         <q-btn label="guardar" @click="saveImage()" flat />
       </q-card-actions>
     </q-card>
@@ -36,8 +48,9 @@ import { ref, watchEffect } from "vue";
 import * as httpUser from "@http/user";
 import { storeToRefs } from "pinia";
 
-const { modal, field, getCropper, setCropper, toggleModal } = imageChangeComposable();
-const userStore = useUserStore()
+const { modal, field, getCropper, setCropper, toggleModal } =
+  imageChangeComposable();
+const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
 const { files, open, reset } = useFileDialog();
 
@@ -57,8 +70,12 @@ const bindMode = {
 };
 
 const saveImage = () => {
-  const { coordinates, image }: CropperResult = elementImgCropper.value?.getResult();
-  const img = { coordinates: { ...coordinates, top: coordinates.top - 10 }, image };
+  const { coordinates, image }: CropperResult =
+    elementImgCropper.value?.getResult();
+  const img = {
+    coordinates: { ...coordinates, top: coordinates.top - 10 },
+    image,
+  };
   const imgUrlDB = user.value?.images[field.value].image?.src;
 
   userStore.changeImage(field.value, img);
@@ -99,7 +116,7 @@ const resetComponent = () => {
 <style lang="scss">
 @import "vue-advanced-cropper/dist/style.css";
 
-.q-dialog__inner>div {
+.q-dialog__inner > div {
   overflow: hidden;
   padding: 1px;
 }

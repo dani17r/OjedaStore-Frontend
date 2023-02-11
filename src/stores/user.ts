@@ -9,7 +9,7 @@ import {
 } from "@interfaces/user";
 import * as httpUser from "@http/user";
 import * as httpAuth from "@http/auth";
-import { defineStore } from "pinia";
+import { defineStore, storeToRefs } from "pinia";
 
 export const useUserStore = defineStore("user", {
   state: (): StateI => ({
@@ -94,4 +94,9 @@ export const useUserStore = defineStore("user", {
       }
     },
   },
+});
+
+export const userStore = () => ({
+  ...useUserStore(),
+  ...storeToRefs(useUserStore()),
 });

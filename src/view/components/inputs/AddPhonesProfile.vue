@@ -1,20 +1,22 @@
 <template>
   <div v-if="profile">
     <span>Telefonos</span>
-    <template v-if="profile.phones.length">
-      <div v-for="(phone, index) in profile.phones" :key="index" class="m-5">
-        <q-input :modelValue="phone" label="Nombre de usuario" />
+    <template v-if="phones.length">
+      <div class="m-5" id="contentInputs">
+        <QInputEdit
+          v-for="(phone, index) in phones"
+          inputStyle="margin-left: -4px"
+          label="Añadir telefono"
+          :value="String(phone)"
+          mask="## ###-####"
+          prefix="+58 04"
+          unmasked-value
+          :key="index"
+        />
       </div>
     </template>
-    <div v-else class="ml-5">
-      <QInputEdit
-        inputStyle="margin-left: -4px"
-        label="Añadir telefono"
-        mask="## ###-####"
-        v-model="newPhone"
-        unmasked-value
-        prefix="+58 04"
-      />
+    <div class="ml-5">
+      <q-btn label="Añadir telefono" flat @click="addPhone()" />
     </div>
   </div>
 </template>
@@ -22,13 +24,22 @@
 <script setup lang="ts">
 // Internal proyect
 import QInputEdit from "@components/inputs/QInputEdit.vue";
-import { useUserStore } from "@stores/user";
+import { userStore } from "@stores/user";
 
 //Libraries
-import { storeToRefs } from "pinia";
-import { ref } from "vue";
+import { Ref, ref } from "vue";
 
-const newPhone = ref("");
-let userStore = useUserStore();
-const { profile } = storeToRefs(userStore);
+const { profile } = userStore();
+const phones = ref<String[]>([]);
+
+const addPhone = () => {
+  phones.value.push("");
+  setTimeout(() => {
+    let input = document.getElementById("contentInputs");
+    if (input) {
+      const element = input.children[phones.value.length - 1];
+      element.dispatchEvent(new MouseEvent("dblclick"));
+    }
+  }, 150);
+};
 </script>

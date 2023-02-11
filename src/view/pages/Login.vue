@@ -1,34 +1,70 @@
 <template>
-  <div class="full-width row justify-center items-center content-center q-mb-xl">
+  <div
+    class="full-width row justify-center items-center content-center q-mb-xl"
+  >
     <div class="full-width q-mt-xl" style="max-width: 400px">
-      <q-form @submit="authStore.login(form)" @reset="onReset" class="q-gutter-lg">
-        <q-input :label="$t('pages.login.inputs.email.label')" :hint="$t('pages.login.inputs.email.hint')"
-          v-model="form.email" ref="inputEmail" :rules="[empty]" lazy-rules />
+      <q-form
+        @submit="authStore.login(form)"
+        @reset="onReset"
+        class="q-gutter-lg"
+      >
+        <q-input
+          :label="$t('pages.login.inputs.email.label')"
+          :hint="$t('pages.login.inputs.email.hint')"
+          v-model="form.email"
+          ref="inputEmail"
+          :rules="[empty]"
+          lazy-rules
+        />
 
-        <q-input :label="$t('pages.login.inputs.password.label')" :hint="$t('pages.login.inputs.password.hint')"
-          :type="isPwd ? 'password' : 'text'" v-model="form.password" :rules="[empty]">
+        <q-input
+          :label="$t('pages.login.inputs.password.label')"
+          :hint="$t('pages.login.inputs.password.hint')"
+          :type="isPwd ? 'password' : 'text'"
+          v-model="form.password"
+          :rules="[empty]"
+        >
           <template v-slot:append>
-            <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="tw-cursor-pointer" @click="isPwd = !isPwd" />
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="tw-cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
           </template>
         </q-input>
 
         <q-toggle v-model="form.extend" :label="$t('pages.login.toggle')" />
 
         <div class="tw-mt-10">
-          <q-btn :label="$t('pages.login.btn.submit')" color="primary" type="submit" unelevated />
-          <q-btn :label="$t('pages.login.btn.reset')" color="primary" class="q-ml-sm" type="reset" flat />
+          <q-btn
+            :label="$t('pages.login.btn.submit')"
+            color="primary"
+            type="submit"
+            unelevated
+          />
+          <q-btn
+            :label="$t('pages.login.btn.reset')"
+            color="primary"
+            class="q-ml-sm"
+            type="reset"
+            flat
+          />
         </div>
       </q-form>
 
       <div class="tw-mt-6 tw-grid tw-gap-3">
         <div>
-          <a class="tw-capitalize tw-underline tw-cursor-pointer" @click="sendEmailForgot()">{{
-            $t("pages.login.links.recoveryPassword")
-          }}</a>
+          <a
+            class="tw-capitalize tw-underline tw-cursor-pointer"
+            @click="sendEmailForgot()"
+            >{{ $t("pages.login.links.recoveryPassword") }}</a
+          >
         </div>
-        <RouterLink :to="{ name: 'register' }" class="tw-capitalize tw-contents">{{
-          $t("pages.login.links.goTo")
-        }}</RouterLink>
+        <RouterLink
+          :to="{ name: 'register' }"
+          class="tw-capitalize tw-contents"
+          >{{ $t("pages.login.links.goTo") }}</RouterLink
+        >
       </div>
     </div>
   </div>

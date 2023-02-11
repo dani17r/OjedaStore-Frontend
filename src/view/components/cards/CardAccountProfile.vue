@@ -8,7 +8,9 @@
         <q-item-label class="tw-text-lg tw-font-semibold">
           {{ startCase(String(user?.fullname)) }}
         </q-item-label>
-        <q-item-label class="tw-font-semibold" caption>{{ user?.username }}</q-item-label>
+        <q-item-label class="tw-font-semibold" caption>{{
+          user?.username
+        }}</q-item-label>
         <hr class="tw-my-2" />
         <q-item-label caption>
           {{ user?.email }}

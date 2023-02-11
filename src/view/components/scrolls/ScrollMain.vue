@@ -1,7 +1,14 @@
 <template>
   <q-scroll-area style="height: 100vh" ref="scrollAreaRef">
     <slot />
-    <q-btn icon="keyboard_arrow_up" class="btn-scroll-top" @click="scrollTop()" v-show="showBtn" color="tw-one" round />
+    <q-btn
+      icon="keyboard_arrow_up"
+      class="btn-scroll-top"
+      @click="scrollTop()"
+      v-show="showBtn"
+      color="one"
+      round
+    />
   </q-scroll-area>
 </template>
 
