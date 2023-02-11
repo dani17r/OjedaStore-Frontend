@@ -11,14 +11,12 @@
 </template>
 
 <script setup lang="ts">
-import CardAccount from "@components/CardAccount.vue";
+import CardAccount from "@components/cards/CardAccountProfile.vue";
+import ButtomLink from "@components/buttoms/ButtomLink.vue";
 import composableDrawers from "@composables/drawers";
-import ButtomLink from "@components/ButtomLink.vue";
 import { useUserStore } from "@stores/user";
-import { storeToRefs } from "pinia";
 
-const userStore = useUserStore();
-const { user } = storeToRefs(userStore);
+const { user } = useUserStore();
 
 const { drawerOne, changeStorageDrawerOne } = composableDrawers();
 const items = [
@@ -29,7 +27,7 @@ const items = [
     icon: "home",
   },
   {
-    to: { name: "profile-user", params: { id: user?.value?._id } },
+    to: { name: "profile-user", params: { id: user?._id } },
     description: "your account",
     title: "Profile",
     icon: "account_circle",

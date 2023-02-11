@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import AvatarAccount from "@components/AvatarAccount.vue";
+import AvatarAccount from "@components/images/avatars/AvatarAccountUser.vue";
 import composableModeDark from "@composables/modeDark";
 import composableLang from "@composables/modeLang";
 import { useAuthStore } from "@stores/auth";

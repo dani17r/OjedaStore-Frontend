@@ -26,12 +26,12 @@
 </template>
 
 <script setup lang="ts">
-import BannerVerifyEmail from "@components/BannerVerifyEmail.vue";
-import ScrollMain from "@components/scroll/ScrollMain.vue";
-import MenuUserRight from "@components/MenuUserRight.vue";
-import DrawerLeftOne from "@components/DrawerLeftOne.vue";
+import BannerVerifyEmail from "@components/benners/warning/BannerVerifyEmail.vue";
+import DrawerLeftOne from "@components/drawers/DrawerLeftOne.vue";
+import MenuUserRight from "@components/menus/MenuRightUser.vue";
+import ScrollMain from "@components/scrolls/ScrollMain.vue";
+import LogoHeader from "@components/images/LogoHeader.vue";
 import composableDrawers from "@composables/drawers";
-import LogoHeader from "@components/LogoHeader.vue";
 
 const { toggleLeftDrawer } = composableDrawers();
 </script>

@@ -19,11 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import AvatarAccount from "@components/AvatarAccount.vue";
+import AvatarAccount from "@components/images/avatars/AvatarAccountUser.vue";
 import { useUserStore } from "@stores/user";
-import { storeToRefs } from "pinia";
 import { startCase } from "lodash";
 
-const userStore = useUserStore();
-const { user } = storeToRefs(userStore);
+const { user } = useUserStore();
 </script>

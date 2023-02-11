@@ -88,13 +88,13 @@ import { verifyProfile } from "@middlewares/one";
 import { useUserStore } from "@stores/user";
 
 // Componentes
-import IdentifyHerou from "@components/profile/IdentifyHerou.vue";
+import IdentifyHerou from "@components/images/herous/IdentifyHerouProfile.vue";
 import QInputSelect from "@components/inputs/QInputSelect.vue";
 import QInputDate from "@components/inputs/QInputDate.vue";
 import QInputEdit from "@components/inputs/QInputEdit.vue";
-import AddPhones from "@components/profile/AddPhones.vue";
-import ErrorProfile from "@components/ErrorProfile.vue";
-import ImgHerou from "@components/profile/ImgHerou.vue";
+import AddPhones from "@components/inputs/AddPhonesProfile.vue";
+import ErrorProfile from "@components/errors/ErrorProfile.vue";
+import ImgHerou from "@components/images/herous/ImgHerouProfile.vue";
 
 //Libraries
 import { onBeforeRouteUpdate } from "vue-router";

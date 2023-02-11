@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 //Components
-import UploadImageChange from "@components/modals/UploadImageChange.vue";
-import ImgViewerBasic from "@components/modals/ImgViewerBasic.vue";
+import UploadImageChange from "@components/images/uploads/UploadImageChange.vue";
+import ImgViewerBasic from "@components/images/views/ImgViewerBasic.vue";
 
 //Internal Project
 import { useUserStore } from "@stores/user";

@@ -9,7 +9,7 @@
         style="background-color: #5e33af" v-show="showEditeImage" v-if="currentUserOnly" icon="crop_original" fab-mini
         round />
     </div>
-    <div class="tw-pl-24 tw-flex tw-flex-col tw-justify-center" style="height: 90px; width: 370px; padding-left: 130px">
+    <div class="tw-pl-24 tw-flex tw-flex-col tw-justify-center" style="height: 90px; padding-left: 130px">
       <span class="name">{{ startCase(String(profile?.fullname)) }}</span>
       <span class="">{{ profile?.username }}</span>
       <span class="tw-text-sm tw-text-two-2 tw-mt-1">{{
@@ -25,7 +25,7 @@ import imageChangeComposable from "@composables/uploadImageChange";
 import { useUserStore } from "@stores/user";
 
 // Componentes
-import AvatarAccount from "@components/AvatarAccount.vue";
+import AvatarAccount from "@components/images/avatars/AvatarAccountUser.vue";
 
 //Libraries
 import { storeToRefs } from "pinia";

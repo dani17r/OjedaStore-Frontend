@@ -13,14 +13,12 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from "@stores/user";
 import { Notify, SessionStorage } from "quasar";
+import { useUserStore } from "@stores/user";
 import * as httpAuth from "@http/auth";
-import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
-const userStore = useUserStore();
-const { emailIsVerify, user } = storeToRefs(userStore);
+const { emailIsVerify, user } = useUserStore();
 let nameSend = "sendEmailVeriyAccount";
 
 const isSend = () => {
@@ -35,7 +33,7 @@ const closeBanner = () => (close.value = true);
 
 const sendAgainVerifyEmail = () => {
   httpAuth
-    .verifyEmail(String(user.value?.email), "users")
+    .verifyEmail(String(user?.email), "users")
     .then(() => {
       let timestamp = new Date();
       let deadline = timestamp.setHours(timestamp.getHours() + 5);

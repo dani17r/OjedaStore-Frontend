@@ -22,9 +22,9 @@
 
 <script setup lang="ts">
 import { onBeforeRouteUpdate, RouteLocationNormalized } from "vue-router";
-import ButtomLang from "@components/ButtomLang.vue";
-import ToggleDark from "@components/ToggleDark.vue";
-import LogoHeader from "@components/LogoHeader.vue";
+import ButtomLang from "@components/buttoms/ButtomLang.vue";
+import ToggleDark from "@components/toggles/ToggleDark.vue";
+import LogoHeader from "@components/images/LogoHeader.vue";
 import { useRoute } from "vue-router";
 import { ref } from "vue";
 const route = useRoute();

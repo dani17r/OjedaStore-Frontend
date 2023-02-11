@@ -49,12 +49,13 @@ export default defineComponent({
       dispatchEvent.value = false
       val.value = props.value;
       valueEdit.value = false
+      dispatchEvent.value = true
     }
 
     const blur = () => {
       if (dispatchEvent.value) {
         setTimeout(() => cancel(), 250)
-      } else dispatchEvent.value = true
+      }
     }
 
     return {
