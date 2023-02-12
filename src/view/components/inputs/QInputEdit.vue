@@ -1,17 +1,23 @@
 <template>
   <div @dblclick="edite()" class="dbclick">
     <q-input
-      v-bind="$attrs"
-      v-model="val"
       :class="{ 'no-edit': !valueEdit }"
-      @blur="blur()"
-      ref="inputElement"
-      :disable="!valueEdit"
       @keyup.esc="cancel()"
+      :disable="!valueEdit"
       @keyup.enter="save()"
+      ref="inputElement"
+      v-bind="$attrs"
+      @blur="blur()"
+      v-model="val"
     >
-      <template v-slot:before>
-        <div class="tw-absolute tw-right-10 tw-z-50">
+      <template v-for="(_, name) in $slots" #[nameSlot(name)]="slotProps">
+        <slot :name="name" v-bind="slotProps" :key="name" />
+      </template>
+      <template #before>
+        <div
+          class="tw-absolute tw-right-10 tw-z-50"
+          :style="`right:${positionIconEdite}`"
+        >
           <q-icon name="edit" @click="edite()" v-if="!valueEdit" />
           <div v-else class="tw-flex tw-gap-2">
             <q-icon name="save" @click="save()" />
@@ -32,9 +38,15 @@ export default defineComponent({
     value: {
       type: String,
     },
+    positionIconEdite: {
+      type: String,
+    },
   },
   emits: {
     save(val: never) {
+      return val;
+    },
+    blur(val = true) {
       return val;
     },
   },
@@ -51,26 +63,35 @@ export default defineComponent({
     };
 
     const save = () => {
-      dispatchEvent.value = false;
-      valueEdit.value = false;
-      ctx.emit("save", val.value as never);
+      if (String(val.value).length > 4) {
+        dispatchEvent.value = false;
+        valueEdit.value = false;
+        ctx.emit("save", val.value as never);
+      }
     };
+
     const cancel = () => {
-      dispatchEvent.value = false;
+      dispatchEvent.value = true;
       val.value = props.value;
       valueEdit.value = false;
-      dispatchEvent.value = true;
     };
 
     const blur = () => {
-      if (dispatchEvent.value) {
-        setTimeout(() => cancel(), 250);
-      }
+      setTimeout(() => {
+        if (dispatchEvent.value) {
+          cancel();
+          if (!val.value) ctx.emit("blur");
+        }
+        dispatchEvent.value = true;
+      }, 250);
     };
+
+    const nameSlot = (val: string | number) => String(val) ?? "default";
 
     return {
       inputElement,
       valueEdit,
+      nameSlot,
       edite,
       cancel,
       save,

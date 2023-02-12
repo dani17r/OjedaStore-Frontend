@@ -14,7 +14,7 @@
           >
             <template v-slot:before>
               <q-tabs v-model="tab" vertical class="tw-text-primary" noCaps>
-                <q-tab name="1" icon="person" label="Datos" />
+                <q-tab name="1" icon="person" label="Identificacion" />
                 <q-tab name="2" icon="room" label="Ubicaciones" />
                 <q-tab name="3" icon="lock" label="Credenciales" />
               </q-tabs>
@@ -23,7 +23,7 @@
             <template v-slot:after>
               <q-tab-panels v-model="tab" animated swipeable vertical>
                 <q-tab-panel name="1" class="tw-p-10">
-                  <div class="tw-text-h4 q-mb-md">Identificacion</div>
+                  <div class="tw-text-h4 q-mb-md">Identificacion Principal</div>
                   <div v-if="profile && profileCold" class="tw-grid tw-gap-4">
                     <QInputEdit
                       :value="profileCold.fullname"
