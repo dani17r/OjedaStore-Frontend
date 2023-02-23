@@ -10,7 +10,29 @@
 
 .q-menu {
   box-shadow: none !important;
-  overflow: hidden;
+  // overflow: hidden;
+}
+
+.q-menu::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.q-menu::-webkit-scrollbar:vertical {
+  width: 8px;
+}
+
+.q-menu::-webkit-scrollbar-button:increment,
+.q-menu::-webkit-scrollbar-button {
+  display: none;
+}
+
+.q-menu::-webkit-scrollbar-thumb {
+  background-color: #797979;
+  border-radius: 20px;
+}
+
+.q-menu::-webkit-scrollbar-track {
+  border-radius: 10px;
 }
 
 .btn-scroll-top {

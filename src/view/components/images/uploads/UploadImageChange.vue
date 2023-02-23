@@ -19,7 +19,7 @@
           </div>
 
           <div v-else>
-            <q-img :src="'/herou_placeholder.png'" fit="cover" />
+            <q-img :src="`/${field}_placeholder.png`" fit="cover" />
           </div>
         </div>
       </q-card-section>

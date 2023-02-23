@@ -1,18 +1,19 @@
 import { errorNotify, sendEmailNotify } from "@helps/customNotify";
+import { defineStore, storeToRefs } from "pinia";
 import {
   profileFields,
   CreateUserI,
+  StateStoreI,
   nameImage,
-  StateI,
   ImageT,
   UserT,
 } from "@interfaces/user";
 import * as httpUser from "@http/user";
 import * as httpAuth from "@http/auth";
-import { defineStore, storeToRefs } from "pinia";
+import { toRaw } from "vue";
 
 export const useUserStore = defineStore("user", {
-  state: (): StateI => ({
+  state: (): StateStoreI => ({
     lifecycles: {
       mounted: false,
       updated: false,
@@ -89,14 +90,17 @@ export const useUserStore = defineStore("user", {
         if (this.user[field] != newValue) {
           this.user[field] = newValue;
           this.profile[field] = newValue;
-          httpUser.update(this.user?._id, { [field]: this.user[field] });
+          httpUser.update(this.user?._id, { [field]: newValue });
         }
       }
     },
   },
 });
 
-export const userStore = () => ({
-  ...useUserStore(),
-  ...storeToRefs(useUserStore()),
-});
+export const userStore = () => {
+  const store = useUserStore();
+  return {
+    ...store,
+    ...storeToRefs(store),
+  };
+};

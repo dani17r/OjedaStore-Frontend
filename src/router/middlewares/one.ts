@@ -9,18 +9,15 @@ export const verifyToken = (to: RouteLocationNormalized) => {
 };
 
 export const verifyProfile = async (to: RouteLocationNormalized) => {
-  const userStore: any = to.meta?.userActions;
-  let user: UserT | any = to.meta?.user;
+  const userStore: any = to.meta.userActions;
+  let user: UserT | any = to.meta.user;
 
   // si el id no es igual al que traemos por parametros
-  if (user?._id != to.params?.id) {
-    // si el id no cumple con 24 caracteres no es un id
-    if (to.params?.id.length == 24) {
-      httpUser.one(String(to.params?.id)).then((data) => {
-        if (data) userStore.setProfile(data);
-        else userStore.removeProfile();
-      });
-    } else userStore.removeProfile();
+  if (user.username != to.params.username) {
+    httpUser.profile(to.params.username).then((data) => {
+      if (data) userStore.setProfile(data);
+      else userStore.removeProfile();
+    });
   } else userStore.setProfile(user);
 };
 

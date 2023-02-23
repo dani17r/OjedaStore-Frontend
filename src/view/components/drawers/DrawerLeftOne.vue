@@ -27,7 +27,7 @@ const items = [
     icon: "home",
   },
   {
-    to: { name: "profile-user", params: { id: user?._id } },
+    to: { name: "profile-user", params: { username: user?.username } },
     description: "your account",
     title: "Profile",
     icon: "account_circle",

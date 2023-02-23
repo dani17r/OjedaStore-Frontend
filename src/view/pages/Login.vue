@@ -75,8 +75,20 @@
 import { empty } from "@helps/inputsValidations";
 import { useAuthStore } from "@stores/auth";
 import { ref, reactive } from "vue";
+import { useMeta } from "quasar";
 import { pick } from "lodash";
 // End Imports
+
+const metaData = {
+  title: "Login page",
+  meta: {
+    description: { name: "description", content: "Page 1" },
+    keywords: { name: "keywords", content: "Quasar website" },
+  },
+};
+
+//Meta
+useMeta(metaData);
 
 // From Outside
 const authStore = useAuthStore();
@@ -87,7 +99,7 @@ const inputEmail = ref(null); // refElement
 const isPwd = ref(true);
 
 const form = reactive({
-  email: "melaniefitz11@gmail.com",
+  email: "test1@test.com",
   password: "12345678",
   extend: false,
 });

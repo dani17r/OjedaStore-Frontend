@@ -13,6 +13,14 @@ export const one = useMemoize(async (_id: string, query?: QueryI) => {
   return resp.data;
 });
 
+export const profile = async (username: string, query?: QueryI) => {
+  const isQuery = query ? `?${query}` : "";
+  const resp = await api
+    .get(`/users/profile/${username}${isQuery}`)
+    .catch(() => ({ data: null }));
+  return resp.data;
+};
+
 export const create = async (form: CreateUserI) => {
   const resp = await api.post("/users", form);
   return resp.data;

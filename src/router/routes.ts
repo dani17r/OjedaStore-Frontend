@@ -10,7 +10,7 @@ const routes: RouteRecordRaw[] = [
     },
     children: [
       {
-        path: ":id",
+        path: ":username",
         name: "profile-user",
         beforeEnter: [verifyProfile, authUser],
         component: () => import("@pages/user/Profile.vue"),

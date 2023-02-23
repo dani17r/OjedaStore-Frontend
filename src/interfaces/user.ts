@@ -12,6 +12,37 @@ export interface ImagesI {
   herou: ImageT;
 }
 
+export interface CityI {
+  name: string;
+  id: number;
+}
+
+export interface StateI {
+  cities: CityI[];
+  state_code: string;
+  name: string;
+  id: number;
+}
+
+export interface CountryI {
+  states: StateI[];
+  name: string;
+  iso3: string;
+  id: number;
+}
+
+export type CountryT = Omit<CountryI, "states"> | null;
+export type StateT = Omit<StateI, "cities"> | null;
+export type CityT = CityI | null;
+
+export interface LocationI {
+  references: string;
+  country: CountryT;
+  address: string;
+  state: StateT;
+  city: CityT;
+}
+
 export interface RecordsI {
   cedula: number;
   passport: number;
@@ -20,6 +51,7 @@ export interface RecordsI {
 
 export interface UserI {
   verifiedAt: string | null;
+  locations: LocationI[];
   expires_at: string;
   createdAt: string;
   birthDate: string;
@@ -27,7 +59,6 @@ export interface UserI {
   recovery: boolean;
   records: RecordsI;
   phones: string[];
-  locations: any[];
   fullname: string;
   username: string;
   images: ImagesI;
@@ -58,7 +89,7 @@ export type UserT = UserI | null;
 export type nameImage = "herou" | "avatar";
 export type profileFields = keyof Omit<UserI, "_id">;
 
-export interface StateI {
+export interface StateStoreI {
   lifecycles: LifecyclesI;
   profile: UserT;
   user: UserT;

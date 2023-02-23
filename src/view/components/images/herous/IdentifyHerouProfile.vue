@@ -24,7 +24,7 @@
       style="height: 90px; padding-left: 130px"
     >
       <span class="name">{{ startCase(String(profile?.fullname)) }}</span>
-      <span class="">{{ profile?.username }}</span>
+      <span class="tw-text-lg">{{ profile?.username }}</span>
       <span class="tw-text-sm tw-text-two-2 tw-mt-1">{{
         profile?.birthDate &&
         format(new Date(String(profile?.birthDate)), "dd/MM/yyyy")

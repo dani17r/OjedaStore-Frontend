@@ -21,6 +21,10 @@ const api = axios.create({
   withCredentials: true,
 });
 
+const base = axios.create({
+  baseURL: "http://localhost:7500",
+});
+
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
 
@@ -33,4 +37,4 @@ export default boot(({ app }) => {
   //       so you can easily perform requests against your app's API
 });
 
-export { api, axios };
+export { api, base, axios };
