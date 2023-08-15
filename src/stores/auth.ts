@@ -12,6 +12,7 @@ import {
   successNotify,
   errorNotify,
 } from "@helps/customNotify";
+import socket from "@services/socket/auth";
 
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
@@ -22,7 +23,10 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     async login(form: LoginI) {
       return Auth.login(form, model)
-        .then(() => this.router.push({ name: "home" }))
+        .then(() => {
+          this.router.push({ name: "home" });
+          socket.emit("login", true);
+        })
         .catch((err) => errorNotify(err.response.data.message));
     },
 
